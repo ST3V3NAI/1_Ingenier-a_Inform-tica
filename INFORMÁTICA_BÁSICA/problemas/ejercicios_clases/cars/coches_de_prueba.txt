@@ -1,0 +1,5 @@
+Mercedes model5 utilitario 50325.1
+Opel model2 utilitario 42185.8
+Toyota model2 monovolumen 55977.4
+Toyota model1 utilitario 41134.5
+Mercedes model2 coupe 48875

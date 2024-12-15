@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/tupu.dir/main_main.cc.o CMakeFiles/tupu.dir/main.cc.o -o tupu 
