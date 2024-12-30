@@ -32,7 +32,7 @@ int Sumatorio(int suma){
 
 
 int main(){
-  int numero{};
+  int numero{1000};
 
   std::cout << Sumatorio(numero) << std::endl;
 

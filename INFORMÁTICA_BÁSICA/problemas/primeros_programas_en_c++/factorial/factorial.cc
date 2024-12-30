@@ -15,24 +15,23 @@
 #include <iostream>
 
 int Factorial(int numero){
-/*  int factorial{1};
+  int factorial{1};
   for(int i{2}; i <= numero; i++){
   factorial = factorial * i;
  }
   return factorial;
-*/
-  if (numero <= 0){
+}
+ 
+/* if (numero <= 0){
   return 1;
   } else {
     return numero * Factorial(numero - 1);
   }
 }
+*/
 
 void mostrarFactorial(int numero){
-  for(int i{1}; i <= numero; i++){
-    std::cout << Factorial << ' ';
-  }
-  std::cout << "\b\n";
+    std::cout << Factorial(numero);
 }
 
 int main(){

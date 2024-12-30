@@ -14,23 +14,31 @@
 
 #include <iostream>
 
+const int kRestriccion{1000};
+
 int main(){
 
-  int numero, t1 = 0, t2 = 1, siguienteTermino;
-  
-  std::cin >> numero;
+  int termino_1{0}, termino_2{1}, siguiente_termino{0}, suma_pares{0};
 
-  std::cout << "Serie de Fibonacci " << t1 << ", " << t2;
+  std::cout << "Serie de Fibonacci " << termino_1 << ", " << termino_2;
 
-  for(int i=1; i <= numero; i++){
-    siguienteTermino = t1 + t2;
-    std::cout << " , " << siguienteTermino;
+  while(siguiente_termino <= kRestriccion){
+    siguiente_termino = termino_1 + termino_2;
+    
+    if (siguiente_termino > kRestriccion) break;
 
-    t1 = t2;
-    t2 = siguienteTermino; 
+    std::cout << ", " << siguiente_termino;
+
+    if(siguiente_termino % 2 == 0) {
+      suma_pares += siguiente_termino;
+    }
+
+    termino_1 = termino_2;
+    termino_2 = siguiente_termino; 
   }
 
     std::cout << std::endl;
+    std::cout << suma_pares << std::endl;
 
   return 0;
 }

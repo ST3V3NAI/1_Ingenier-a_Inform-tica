@@ -15,7 +15,6 @@
 #include "switch_case.h"
 #include <string>
 #include <iostream>
-#include <cctype>
 
 
 void PrintProgramPurpose() {
