@@ -30,13 +30,13 @@ constexpr int kMaximo{15};
 
 void ImprimeTerna(int number_a){
   int valor_k{number_a / 2}, number_b{0}, number_c{0};
-      if(valor_k % 2 == 1){
+      
+      if(number_a % 2 == 1){
          number_b = 2 * valor_k * (valor_k + 1);
          number_c = number_b + 1; 
       } else{
-        valor_k = number_a / 2;
         number_b = valor_k * valor_k - 1;
-        number_c = number_b + 2;
+        number_c = valor_k * valor_k + 1;
       } 
       std::cout << number_a << " " << number_b << " " << number_c << std::endl;
 }

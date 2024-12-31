@@ -12,29 +12,15 @@
   */
 
 #include "temperatures.h"
-#include <string>
-#include <iostream>
 
 int main (int argc, char *argv[]) {
-  PrintProgramPurpose();
+  Usage(argc, argv);
 
-  if(!CheckCorrectParameters(argc, argv, 4)){
-    return 1;
-  }
+  int min_temp = std::atoi(argv[1]);
+  int max_temp = std::atoi(argv[2]);
+  int difference = std::atoi(argv[3]);
 
-  int principio{} = std::atoi(argv[1]);
-  int final{} = std::atoi(argv[2]);
-  int diferencia{} = std::atoi(argv{3})
-  
-  , final{}, diferencia{};
-
-  std::cin >> principio >> final >> diferencia;
-
-  Intervalo(principio, final, diferencia);
-
-  std::cout << "Celsius\n" << FahrenheitToCelcius(principio);
-
-  std::cout << "Absolute" << FahrenheitToAbsolute(principio);
+  PrintTableOfTemperatures(min_temp, max_temp, difference);
 
   return 0;
 }

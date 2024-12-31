@@ -22,10 +22,8 @@ int main (int argc, char *argv[]) {
   } else {
 
     constexpr int kMaximo{15};
-
-    ImprimeTerna(3);
     
-    for(int i{5}; i <= kMaximo; i++) {
+    for(int i{3}; i <= kMaximo; i++) {
        ImprimeTerna(i);
     }
       return 0;

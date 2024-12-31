@@ -15,12 +15,12 @@
 #ifndef TEMPERATURES_H
 #define TEMPERATURES_H
 
-#include <string>
+#include <iostream>
+#include <iomanip>
 
-void PrintProgramPurpose();
-bool CheckCorrectParameters(int argc, char *argv[], const int kCorrectNumber);
-std::string Intervalo(int principio, int final, int diferencia);
-double FahrenheitToCelcius(double fahrenheit);
-double FahrenheitToAbsolute(double fahrenheit);
+void Usage(int argc, char* argv[]);
+double FahrenheitToCelsius(double temperature);
+double FahrenheitToAbsolute(double temperature);
+void PrintTableOfTemperatures(int min_temp, int max_temp, int difference);
 
 #endif
