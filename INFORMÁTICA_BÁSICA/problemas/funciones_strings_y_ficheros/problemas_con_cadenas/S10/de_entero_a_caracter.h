@@ -16,9 +16,11 @@
 #define DE_ENTERO_A_CARACTER_H
 
 #include <iostream>
+#include <vector>
+#include <string>
 
 void PrintProgramPurpose();
 bool CheckCorrectParameters(int argc, char *argv[], const int kCorrectNumber);
-void DeIntaChar(int& numero);
+std::string DeIntaChar(const std::vector<int>& numeros);
 
 #endif

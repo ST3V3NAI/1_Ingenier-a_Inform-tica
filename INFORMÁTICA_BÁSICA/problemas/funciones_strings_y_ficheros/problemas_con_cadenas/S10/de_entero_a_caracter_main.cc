@@ -12,18 +12,23 @@
   */
 
 #include "de_entero_a_caracter.h"
-#include <iostream>
+
 
 int main (int argc, char *argv[]) {
   PrintProgramPurpose();
 
-  if(!CheckCorrectParameters(argc, argv, 2)){
+  if(!CheckCorrectParameters(argc, argv, 5)){
     return 1;
   }
 
   int numero = std::atoi(argv[1]);
+  int numero_2 = std::atoi(argv[2]);
+  int numero_3 = std::atoi(argv[3]);
+  int numero_4 = std::atoi(argv[4]);
 
-  DeIntaChar(numero);
+  std::vector<int> numeros{numero, numero_2, numero_3, numero_4};
+
+  std::cout << DeIntaChar(numeros);
   
   return 0;
 }

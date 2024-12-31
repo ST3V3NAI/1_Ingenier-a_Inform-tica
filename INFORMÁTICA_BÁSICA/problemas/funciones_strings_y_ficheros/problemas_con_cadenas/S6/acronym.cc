@@ -31,7 +31,7 @@ bool CheckCorrectParameters(const int argc, char *argv[], const int kCorrectNumb
 }
 
 void Initials(std::string& frase){
-    std::getline(std::cin, frase, '.');
+  std::getline(std::cin, frase, '.');
     for(char& i : frase){
         if(std::isupper(i)){
             std::cout << i;

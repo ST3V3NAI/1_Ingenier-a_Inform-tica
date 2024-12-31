@@ -20,23 +20,25 @@ void PrintProgramPurpose() {
   std::cout << "This program translates a number into the ASCII value" << std::endl << std::endl;
 }
 
-bool CheckCorrectParameters(const int argc, char *argv[], const int kCorrectNumber = 2) {
+bool CheckCorrectParameters(const int argc, char *argv[], const int kCorrectNumber = 5) {
   if (argc != kCorrectNumber) {
     std::cout << "This program has been executed with a wrong number of parameters." << std::endl;
-    std::cout << "This program should be called as: " << argv[0] << " <number> " << std::endl;
+    std::cout << "This program should be called as: " << argv[0] << " < 4 numbers for the vector> " << std::endl;
     return false;
   }
   return true;
 }
 
-void DeIntaChar(int& numero) {
-  if (numero >= 1 && numero <= 9) {
-      char character = static_cast<char>('0' + numero);
-      std::cout << character << std::endl;
+std::string DeIntaChar(const std::vector<int>& numeros) {
+  std::string resultado;
+  for (int numero : numeros) {
+    if (numero >= 0 && numero <= 9) {
+      resultado += static_cast<char>('0' + numero);
     } else if (numero >= 10 && numero <= 35) {
-      char character = static_cast<char>('A' + (numero - 10));
-      std::cout << character << std::endl;
+      resultado += static_cast<char>('A' + (numero - 10));
     }  else {
         std::cout << "No está dentro del intervalo" << std::endl;
     }
+  }
+  return resultado;
 }
