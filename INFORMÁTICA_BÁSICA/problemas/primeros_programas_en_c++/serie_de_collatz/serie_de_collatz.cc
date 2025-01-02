@@ -15,7 +15,7 @@
  #include <iostream>
 
  int main(){
-    int numero_n{0};
+    int numero_n{0}, n_secuencias{0};
 
     std::cout << "n: ";
     std::cin >> numero_n;
@@ -28,5 +28,8 @@
             numero_n = (numero_n * 3) + 1;
             std::cout << numero_n << " ";
         }
+        n_secuencias++;
     }
+
+    std::cout << "Para la secuencia " << numero_n << " necesitariamos " << n_secuencias + 1 << " secuencias" << std::endl;
  }

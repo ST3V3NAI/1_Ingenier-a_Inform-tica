@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/tasks.dir/task.cc.o CMakeFiles/tasks.dir/tasks.cc.o -o /home/usuario/1_Ingenier-a_Inform-tica/INFORMÁTICA_BÁSICA/problemas/ejercicios_clases/tasks/build/tasks 

@@ -1,0 +1,3 @@
+/home/usuario/1_Ingenier-a_Inform-tica/INFORMÁTICA_BÁSICA/problemas/ejercicios_clases/tasks/src/CMakeFiles/tasks.dir
+/home/usuario/1_Ingenier-a_Inform-tica/INFORMÁTICA_BÁSICA/problemas/ejercicios_clases/tasks/src/CMakeFiles/edit_cache.dir
+/home/usuario/1_Ingenier-a_Inform-tica/INFORMÁTICA_BÁSICA/problemas/ejercicios_clases/tasks/src/CMakeFiles/rebuild_cache.dir
