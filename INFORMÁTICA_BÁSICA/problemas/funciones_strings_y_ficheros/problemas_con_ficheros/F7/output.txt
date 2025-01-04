@@ -1,0 +1,10 @@
+dolor: 5
+ipsum: 4
+sit: 4
+amet: 4
+lorem: 4
+in: 3
+ut: 3
+adipiscing: 3
+elit: 3
+consectetur: 3
