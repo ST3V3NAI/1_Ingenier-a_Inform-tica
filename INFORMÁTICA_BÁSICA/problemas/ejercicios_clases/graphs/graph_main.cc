@@ -5,8 +5,8 @@
  * Informática Básica 2024-2025
  *
  * @author Steven Abolaji Ibidokun alu0101619613@ull.edu.es
- * @date Dec 4, 2023
- * @brief El programa almacena información sobre coches e imprime el precio más caro de cada tipo
+ * @date Dec 4, 2024
+ * @brief El programa almacena información los grafos y manda la información a un fichero o la imprime por pantalla un msg
  * @bug There are no known bugs
  */
 
