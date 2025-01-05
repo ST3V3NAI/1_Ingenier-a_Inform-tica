@@ -52,7 +52,7 @@ ComplexNumber::ComplexNumber(double real, double imaginary) :
  * @brief Sign change operator
  * @return Complex number with the sign changed
  */
-ComplexNumber ComplexNumber::operator~() const {
+ComplexNumber ComplexNumber::operator-() const {
   return ComplexNumber{-real_, -imaginary_};
 }
 
@@ -90,7 +90,7 @@ ComplexNumber operator+(const ComplexNumber& c1, const ComplexNumber& c2) {
  * @return ComplexNumber 
  */
 ComplexNumber operator-(const ComplexNumber& c1, const ComplexNumber& c2) {
-    return c1 - (c2);
+    return c1 + (-c2);
 }
 
 /** 
@@ -133,18 +133,9 @@ ComplexNumber operator/(const ComplexNumber& complex, const double scalar) {
  */
 
 ComplexNumber operator/(const ComplexNumber& c1, const ComplexNumber& c2) {
-  // Calculate the conjugate of the denominator
-  ComplexNumber conjugate = c2.Reverse();
-  
-  // Multiply numerator by the conjugate of the denominator
-  ComplexNumber numerator = c1 * conjugate;
-  
-  // Calculate the denominator as the product of the denominator and its conjugate
-  double denominator = c2.real() * c2.real() + c2.imaginary() * c2.imaginary();
-  
-  // Return the result of the division
-  return ComplexNumber(numerator.real() / denominator, numerator.imaginary() / denominator);
+  return c1 * c2.Reverse();
 }
+
 
 
 /**

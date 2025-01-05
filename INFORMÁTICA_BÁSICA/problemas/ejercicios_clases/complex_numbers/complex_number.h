@@ -27,11 +27,9 @@ class ComplexNumber {
       ComplexNumber(double real = 0.0, double imaginary = 0.0);
       double real() const { return real_; }
       double imaginary() const { return imaginary_; }
-      ComplexNumber operator~() const;
+      ComplexNumber operator-() const;
       ComplexNumber Conjugate() const;
       ComplexNumber Reverse() const;
-    
-
     private:
      double real_;
      double imaginary_;
@@ -40,7 +38,7 @@ class ComplexNumber {
 ComplexNumber operator+(const ComplexNumber& c1, const ComplexNumber& c2);
 ComplexNumber operator-(const ComplexNumber& c1, const ComplexNumber& c2);
 ComplexNumber operator*(const ComplexNumber& complex, const double scalar);
-ComplexNumber operator*(const ComplexNumber& c1, const ComplexNumber c2);
+ComplexNumber operator*(const ComplexNumber& c1, const ComplexNumber& c2);
 ComplexNumber operator/(const ComplexNumber& complex, const double scalar);
 ComplexNumber operator/(const ComplexNumber& c1, const ComplexNumber& c2);
 std::ostream& operator<<(std::ostream& out, const ComplexNumber& c);
