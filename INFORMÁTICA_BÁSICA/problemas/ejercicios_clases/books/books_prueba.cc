@@ -49,6 +49,5 @@ int main(int argc, char* argv[]) {
   book2.mostrarInfo(porcentaje_impuesto);
 
   Book book3("Los pilares de la Tierra", 1989, 27.00);
-  book3.mostrarInfo(porcentaje_impuesto);
-  
+  book3.mostrarInfo(porcentaje_impuesto); 
 }

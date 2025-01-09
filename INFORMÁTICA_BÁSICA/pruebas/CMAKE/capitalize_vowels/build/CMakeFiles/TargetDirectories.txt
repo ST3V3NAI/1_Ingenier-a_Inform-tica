@@ -1,3 +1,0 @@
-/home/usuario/IB/pruebas/CMAKE/capitalize_vowels/build/CMakeFiles/capitalize_vowels.dir
-/home/usuario/IB/pruebas/CMAKE/capitalize_vowels/build/CMakeFiles/edit_cache.dir
-/home/usuario/IB/pruebas/CMAKE/capitalize_vowels/build/CMakeFiles/rebuild_cache.dir

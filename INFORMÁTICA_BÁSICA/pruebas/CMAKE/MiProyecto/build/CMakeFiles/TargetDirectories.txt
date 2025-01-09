@@ -1,3 +1,0 @@
-/home/usuario/IB/pruebas/CMAKE/MiProyecto/build/CMakeFiles/tupu.dir
-/home/usuario/IB/pruebas/CMAKE/MiProyecto/build/CMakeFiles/edit_cache.dir
-/home/usuario/IB/pruebas/CMAKE/MiProyecto/build/CMakeFiles/rebuild_cache.dir
