@@ -11,7 +11,6 @@
   * @bug There are no known bugs
   */
 
-
 #ifndef TEMPERATURES_H
 #define TEMPERATURES_H
 
@@ -23,4 +22,4 @@ double FahrenheitToCelsius(double temperature);
 double FahrenheitToAbsolute(double temperature);
 void PrintTableOfTemperatures(int min_temp, int max_temp, int difference);
 
-#endif
+#endif // TEMPERATURES_H

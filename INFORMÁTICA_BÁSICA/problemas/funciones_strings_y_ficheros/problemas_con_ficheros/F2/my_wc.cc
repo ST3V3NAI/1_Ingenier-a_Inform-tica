@@ -48,8 +48,7 @@ int main() {
   while(std::getline(fichero, lineas)){
     numLineas++;
     numCaracteres += lineas.length();
-
-
+    
     std::istringstream streamLinea(lineas);
     std::string palabra;
     while (streamLinea >> palabra) {

@@ -31,7 +31,6 @@ bool CheckCorrectParameters(const int argc, char *argv[], const int kCorrectNumb
   return true;
 }
 
-
 int main() {
   PrintProgramPurpose();
     std::string linea;

@@ -30,11 +30,11 @@ bool CheckCorrectParameters(const int argc, char *argv[], const int kCorrectNumb
 void CountVowels(const std::string& text) {
     int contador{};
 
-    for(char i : text){
-        if(i == 'a' || i == 'e' || i == 'i' || i == 'o' || i == 'u' || i == 'A' || i == 'E' || i == 'I' ||  i == 'O' || i == 'U'){
-            contador++;
-        }
+    for(char character : text){
+      if(character == 'a' || character == 'e' || character == 'i' || character == 'o' || character == 'u' || character == 'A' || character == 'E' || character == 'I' ||  character == 'O' || character == 'U'){
+        contador++;
+      }
     }
-
+    
     std::cout << contador << std::endl;
 }
