@@ -1,7 +1,7 @@
     .data    # segmento de datos del programa
 
 v_inicio:           .word   1  
-v_fin:              .word   11
+v_fin:              .word   25
 acumulado:          .word   0
 
 num_real:           .float  3.1416   # codificado en IEEE754 para 32 bits es 0x40490FF9
