@@ -10,11 +10,11 @@
 
 // pauta de estilo [92]: comentarios multilínea usando solo "//"
 
-#pragma once
+#pragma once // Evita que el archivo se incluya varias veces en el proyecto
 
-#include <iostream>
-#include <cassert>
-#include <cmath>
+#include <iostream> // Para flujos de entrada y salida 
+#include <cassert> // Similar a una función booleana, para verificar condiciones en tiempo de ejecuciób
+#include <cmath> // Para funciones matematica
 
 // pauta de estilo [5]
 # define EPSILON 1e-6 // Constante Epsilon 
