@@ -56,6 +56,9 @@ int main()
   
   cout << "a / b: ";
   a.divide(b).write();
+
+//  cout << "a^2 / b^2: ";
+//  a.cuadrado(b).write();
   
   return 0;
 }

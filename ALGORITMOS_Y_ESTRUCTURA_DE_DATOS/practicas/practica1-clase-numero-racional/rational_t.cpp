@@ -130,8 +130,13 @@ rational_t rational_t::divide(const rational_t& r) {
   return rational;
 }
 
-
-
+// Método que devuelve el cuadrado de un número racionales 
+//  rational_t rational_t::cuadrado(const rational_t& r) {
+//  int num = pow(get_num(), 2);
+//  int den = pow(get_den(), 2);
+//  rational_t rational(num, den);
+//  return rational; 
+// }
 // E/S
 
 // Método que muestra por pantalla un número racional

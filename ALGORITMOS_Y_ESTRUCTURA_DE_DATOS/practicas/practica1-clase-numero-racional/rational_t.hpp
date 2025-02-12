@@ -58,6 +58,7 @@ public:
   rational_t substract(const rational_t&);
   rational_t multiply(const rational_t&);
   rational_t divide(const rational_t&);
+  // rational_t cuadrado(const rational_t&);
 
   // Métodos de escritura y lectura por pantalla de numeros racionales
   void write(ostream& = cout) const;
