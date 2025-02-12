@@ -12,12 +12,7 @@
 
 #include "rational_t.hpp"
 
-/**
- * @brief Constructor de la clase Rational
- * 
- * @param[in] n Numerador 
- * @param[in] d Denominador
- */
+// Constructor de la clase Rational
 rational_t::rational_t(const int n, const int d)
 {
   assert(d != 0);
@@ -26,11 +21,8 @@ rational_t::rational_t(const int n, const int d)
 
 // pauta de estilo [87]: 3 líneas de separación entre métodos
 // pauta de estilo [83]: tipo retornado en línea anterior al método
-/**
- * @brief Getter que se encarga de obtener del numerador
- * 
- * @return Retorna el valor del numerador
- */
+
+// Getter que devuelve el numerador de un número racional
 int 
 rational_t::get_num() const
 {
@@ -38,11 +30,7 @@ rational_t::get_num() const
 }
 
 
-/**
- * @brief Getter que se encarga de obtener el denominador 
- * 
- * @return Retorna el valor del denominador
- */
+// Getter que devuelve el denominador de un número racional 
 int
 rational_t::get_den() const
 {
@@ -50,11 +38,7 @@ rational_t::get_den() const
 }
 
 
-/**
- * @brief  Setter que asigna el valor el valor del numerador
- * 
- * @param[in] n Numerador
- */
+// Setter que asigna el valor el valor del numerador
 void
 rational_t::set_num(const int n)
 {
@@ -62,11 +46,7 @@ rational_t::set_num(const int n)
 }
 
 
-/**
- * @brief Setter que asigna el valor del denominador
- * 
- * @param[in] d Denominador
- */
+// Setter que asigna el valor del denominador
 void
 rational_t::set_den(const int d)
 {
@@ -75,11 +55,7 @@ rational_t::set_den(const int d)
 }
 
 
-/**
- * @brief Método que retorna el valor del numero racional (numerador / denominador)
- * 
- * @return El valor del numero racional
- */
+// Método que retorna el valor del numero racional (numerador / denominador)
 double
 rational_t::value() const
 { 
@@ -88,14 +64,7 @@ rational_t::value() const
 
 
 // comparaciones
-/**
- * @brief Función que comprueba si |a-b| < ϵ
- * 
- * @param[in] r El numero rational
- * @param[in] precision La precisión
- * @return true En caso de que se cumpla
- * @return false En caso contrario
- */
+// Método que comprueba que dos números racionales son iguales
 bool rational_t::is_equal(const rational_t& r, const double precision) const { 
   if(fabs(value() - r.value()) < EPSILON) {
     return true;
@@ -104,14 +73,7 @@ bool rational_t::is_equal(const rational_t& r, const double precision) const {
   }
 }
 
-/**
- * @brief Función que comprueba si a-b > ϵ
- * 
- * @param[in] r El numero rational
- * @param[in] precision La precisión
- * @return true En caso de que se cumpla
- * @return false En caso de que no se cumpla
- */
+// Método que comprueba si un número racional es mayor que otro
 bool rational_t::is_greater(const rational_t& r, const double precision) const {
   if((value() - r.value()) > EPSILON) {
     return true;
@@ -121,14 +83,7 @@ bool rational_t::is_greater(const rational_t& r, const double precision) const {
 
 }
 
-/**
- * @brief Función que comprueba si a-b < -ϵ
- * 
- * @param[in] r El numero rational
- * @param[in] precision La precisión
- * @return true En caso de que se cumpla
- * @return false En caso de que no se cumpla
- */
+// Método que comprueba si un número racional es menor que otro
 bool rational_t::is_less(const rational_t& r, const double precision) const {
   if((r.value() - value()) < -(EPSILON)) {
     return true;
@@ -139,13 +94,8 @@ bool rational_t::is_less(const rational_t& r, const double precision) const {
 
 
 // operaciones
-/**
- * @brief Función que busca el minimo comun de los dos numeros racionales
- * y los suma
- * 
- * @param[in] r Numero racional
- * @return El numero racional sumado
- */
+
+// Método que devuelve la suma de dos números racionales
 rational_t rational_t::add(const rational_t& r) { 
   int num = get_num() * r.get_den() + r.get_num() * get_den();
   int den = get_den() * r.get_den();
@@ -153,13 +103,7 @@ rational_t rational_t::add(const rational_t& r) {
   return rational;
 }
 
-/**
- * @brief Función que busca el minimo comun de los dos numeros racionales
- * y los resta
- * 
- * @param[in] r Numero racional
- * @return El numero racional sumado
- */
+// Método que devuelve la resta de dos números racionales
 rational_t rational_t::substract(const rational_t& r) {
   int num = get_num() * r.get_den() - (r.get_num() * get_den());
   int den = get_den() * r.get_den();
@@ -168,12 +112,7 @@ rational_t rational_t::substract(const rational_t& r) {
 }
 
 
-/**
- * @brief Función que multiplica los numeros complejos
- * 
- * @param[in] r Numero racional
- * @return El numero racional sumado
- */
+// Método que devuelve el producto de dos numeros racionales
 rational_t rational_t::multiply(const rational_t& r)
 { 
   int num = get_num() * r.get_num();
@@ -183,12 +122,7 @@ rational_t rational_t::multiply(const rational_t& r)
 }
 
 
-/**
- * @brief Función que divide dos numeros complejos
- * 
- * @param[in] r Numero racional
- * @return El numero racional sumado
- */
+// Método que devuelve la división de dos números racionales
 rational_t rational_t::divide(const rational_t& r) { 
   int num = get_num() * r.get_den();
   int den = get_den() * r.get_num();
@@ -199,11 +133,8 @@ rational_t rational_t::divide(const rational_t& r) {
 
 
 // E/S
-/**
- * @brief Método que se encarga de escribir el numero racional
- * 
- * @param[in] os Operador de flujo de salida
- */
+
+// Método que muestra por pantalla un número racional
 void
 rational_t::write(ostream& os) const
 {
@@ -211,11 +142,7 @@ rational_t::write(ostream& os) const
 }
 
 
-/**
- * @brief Método que se encarga de leer el numero racional
- * 
- * @param[in] is Operador de flujo de entrada
- */
+// Método que lee un número racional solicitado por pantalla 
 void 
 rational_t::read(istream& is)
 {
@@ -225,3 +152,4 @@ rational_t::read(istream& is)
   is >> den_;
   assert(den_ != 0);
 }
+
