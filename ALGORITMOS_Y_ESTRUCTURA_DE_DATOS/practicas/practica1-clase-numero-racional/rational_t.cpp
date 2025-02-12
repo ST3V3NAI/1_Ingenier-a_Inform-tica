@@ -25,7 +25,6 @@ rational_t::rational_t(const int n, const int d)
 }
 
 // pauta de estilo [87]: 3 líneas de separación entre métodos
-
 // pauta de estilo [83]: tipo retornado en línea anterior al método
 /**
  * @brief Getter que se encarga de obtener del numerador
