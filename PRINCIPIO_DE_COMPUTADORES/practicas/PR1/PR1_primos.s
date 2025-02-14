@@ -1,6 +1,6 @@
 # Nombre: Steven Abolaji Ibidokun
 # Fecha de la última modificación: 14/02/25
-# Hora de la última modificación: 13:18
+# Hora de la última modificación: 14:40i
         .data
 strTitulo: .asciiz "PR1. Principios de Computadores. \n"
 cadExplica: .asciiz "Un numero primo es un número natural mayor que 1 que es divisible \t
@@ -141,11 +141,11 @@ if_bucle_for_2:
 #         }
 if_bucle_for_2_dentro: 
 #         if(esPrimo) {
-        beqz $s3, bucle_for
+        beqz $s3, bucle_for             # En caso de que el esPrimo sea 0, es decir falso -> bucle_for
 #             std::cout << parameter_i; 
-        li $v0, 1
-        move $a0, $s2
-        syscall
+        li $v0, 1                       # Instrucción de impresión de entero
+        move $a0, $s2                   # Movemos el valor ($s2 -> $a0)
+        syscall                         # Llamamos al sistema
 #             std::cout << " "; 
         li $v0, 4                       # Instrucción para imprimir espacio
         la $a0, cadEspacio              # Llamada a la dirección de la cadena Espacio
