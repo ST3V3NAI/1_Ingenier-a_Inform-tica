@@ -119,6 +119,8 @@ while_not_true_2:
 bucle_for: 
 #     for(parameter_i = limite_inferior; limite_inferior < limite_superior; parameter_i++) {
         move $s2, $s0                   # Movemos el contenido del registro $s0 a $s2
+
+for_dentro: 
         bge $s0, $s1, while_fin         # Si (limite_inferior < limite_superior) -> while_fin
 #       blt  $s0, $s1, while_fin        # Si ($s0 < $s1 ) -> while_fin
         addi $s2, 1                     # Le sumamo 1 al iterador (parameter_i)
@@ -127,8 +129,10 @@ bucle_for:
 bucle_for_2: 
 #         for(parameter_j = 2; parameter_j < parameter_i; parameter_j++) {
         li $t3, 2                       # Cargamos de forma inmediata $t3 = 2
-        bge $t3, $s2, if_bucle_for_2    # Si ($t3 < $s2) -> while_fin
+for_dentro_2:
+        bge $t3, $s2, while_fin         # Si ($t3 < $s2) -> while_fin
 #        blt $t3, $s2, if_bucle_for_2   # Si ($t3 < $s2) -> while_fin
+        addi $t3, 1                     # Le sumamos 1 al iterador (parameter_j)
 
 if_bucle_for_2: 
 #             if(parameter_i % parameter_j == 0) {
