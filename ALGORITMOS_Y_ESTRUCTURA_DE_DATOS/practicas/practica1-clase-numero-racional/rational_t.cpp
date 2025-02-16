@@ -74,7 +74,7 @@ bool rational_t::is_greater(const rational_t& r, const double precision) const {
 
 // Método que comprueba si un número racional es menor que otro
 bool rational_t::is_less(const rational_t& r, const double precision) const {
-  if((r.value() - value()) < -(precision)) {
+  if((r.value() - value()) > precision) {
     return true;
   } else {
     return false;
@@ -152,12 +152,19 @@ rational_t rational_t::divide(const rational_t& r) {
 }
 
 
-// Método que hace la raíz cuadrada
+// Método que hace la raíz cuadrada de la suma
 //rational_t rational_t::raiz_cuadrada(const rational_t& r) {
-//  int num = (get_num() * r.get_den() + (r.get_num() + get_den()));
+//  int num = (get_num() * r.get_den() + r.get_num() * get_den());
 //  int den = (get_den() * r.get_den());
 //  rational_t rational(sqrt(num), sqrt(den));
 //  return rational; 
+//}
+
+// Método que realiza la raíz del denominador
+// rational_t rational_t::squared_den(const rational_t& r) {
+//   cout << num_ << " / simbolo raiz " << den_ << ": "; 
+//   double new_den = sqrt(den_);
+//   return rational_t(num_, new_den); 
 //}
 
 // Método que devuelve el cuadrado de la suma de los dos racionales

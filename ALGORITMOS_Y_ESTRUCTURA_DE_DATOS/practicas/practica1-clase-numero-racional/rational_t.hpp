@@ -63,7 +63,8 @@ public:
   rational_t divide(const rational_t&);
 // rational_t cuadrado(const rational_t&);
 // rational_t raiz_cuadrada(const rational_t&);
-// rational_t resta_unidad(const rational_t&); 
+// rational_t resta_unidad(const rational_t&);
+// rational_t rational_t::squared_den(const rational_t&); 
 
   // Métodos de escritura y lectura por pantalla de numeros racionales
   void write(ostream& = cout) const;

@@ -46,8 +46,8 @@ int main()
   x.write(); 
   y.write();
   cout << "x == y? " << (x.is_equal(y) ? "true" : "false") << endl;
-  cout << "x < y? " << (x.is_greater(y) ? "true" : "false") << endl;
-  cout << "x > y? " << (x.is_less(y) ? "true" : "false") << endl;
+  cout << "x < y? " << (x.is_less(y) ? "true" : "false") << endl;
+  cout << "x > y? " << (x.is_greater(y) ? "true" : "false") << endl;
 
   // FASE III
   // Suma los valores de a y b
@@ -71,14 +71,17 @@ int main()
 //  cout << "a^2 + b^2: ";
 //  a.cuadrado(b).write();
 
-// Hace la raiz cuadrada suma de los valores de y de b
-// cout << "sqrt(a + b): ";
-// a.raiz_cuadrada(b).write();
+// Hace la raiz cuadrada suma de los valores de a y de b
+//   cout << "sqrt(a + b): ";
+//   a.raiz_cuadrada(b).write();
 
 // Hace la resta de una unidad a un numero dado
 // cout << (rational) - 1: ";
 // a.resta_unidad(d).write();
 
-  
+// Hace la raiz cuadrada de un valor a: 
+// cout << "sqrt(rational) = "; 
+// b.squared_den(b);
+
   return 0;
 }
