@@ -55,21 +55,33 @@ public:
   
   // FASE III
   // Métodos de operaciones aritméticas
-//  rational_t simplify(const rational_t&) const; 
-//  rational_t lowest_common_multiple(const rational_t&);
+  //  rational_t simplify(const rational_t&) const; 
+  //  rational_t lowest_common_multiple(const rational_t&);
   rational_t add(const rational_t&);
   rational_t substract(const rational_t&);
   rational_t multiply(const rational_t&);
   rational_t divide(const rational_t&);
-// rational_t cuadrado(const rational_t&);
-// rational_t raiz_cuadrada(const rational_t&);
-// rational_t resta_unidad(const rational_t&);
-// rational_t rational_t::squared_den(const rational_t&); 
+  // rational_t cuadrado(const rational_t&);
+  // rational_t raiz_cuadrada(const rational_t&);
+  // rational_t resta_unidad(const rational_t&);
+  // rational_t squared_den(const rational_t&); 
 
   // Métodos de escritura y lectura por pantalla de numeros racionales
   void write(ostream& = cout) const;
   void read(istream& = cin);
   
+  // Modificacion 1: 
+  // bool compruebaSiEsEnteroONo(const rational_t&);
+
+  // Modificacion 2:
+  // rational_t rational_factorial(const rational_t&);
+
+  // Modificación Inventada:
+  // rational_t rational_square(const rational_t&);
+
+  // Modificiación Inventada 2: 
+  // rational_t rational_reverse(const rational_t&);
+
 private:
   // pauta de estilo [11]: nombre de los atributos seguido de "_"
   // Atributos de la clase rational

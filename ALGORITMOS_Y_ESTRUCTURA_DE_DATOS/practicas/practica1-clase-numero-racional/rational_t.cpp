@@ -51,7 +51,6 @@ double rational_t::value() const {
   return double(get_num()) / get_den();
 }
 
-
 // comparaciones
 // Método que comprueba que dos números racionales son iguales
 bool rational_t::is_equal(const rational_t& r, const double precision) const { 
@@ -62,6 +61,7 @@ bool rational_t::is_equal(const rational_t& r, const double precision) const {
   }
 }
 
+
 // Método que comprueba si un número racional es mayor que otro
 bool rational_t::is_greater(const rational_t& r, const double precision) const {
   if((value() - r.value()) > precision) {
@@ -69,8 +69,8 @@ bool rational_t::is_greater(const rational_t& r, const double precision) const {
   } else {
     return false;
   }
-
 }
+
 
 // Método que comprueba si un número racional es menor que otro
 bool rational_t::is_less(const rational_t& r, const double precision) const {
@@ -80,6 +80,7 @@ bool rational_t::is_less(const rational_t& r, const double precision) const {
     return false;
   }
 }
+
 
 // Método de simplificación
 //rational_t rational_t::simplify(const rational_t& r) const {
@@ -101,9 +102,7 @@ bool rational_t::is_less(const rational_t& r, const double precision) const {
 //  return (den_ * r.get_den() / std::gcd(den_, r.get_den()));
 //}
 
-
 // operaciones
-
 // Método que devuelve la suma de dos números racionales
 rational_t rational_t::add(const rational_t& r) { 
   int num = get_num() * r.get_den() + r.get_num() * get_den();
@@ -112,11 +111,13 @@ rational_t rational_t::add(const rational_t& r) {
   return rational;
 }
 
+
 //rational_t rational_t::add(const rational_t& r) {
 //    int lcm = (get_den() * r.get_den()) / std::gcd(get_den(), r.get_den());
 //    int num = (get_num() * (lcm / get_den())) + (r.get_num() * (lcm / r.get_den()));
 //    return rational_t(num, lcm);
 //}
+
 
 // Método que devuelve la resta de dos números racionales
 rational_t rational_t::substract(const rational_t& r) {
@@ -134,8 +135,7 @@ rational_t rational_t::substract(const rational_t& r) {
 
 
 // Método que devuelve el producto de dos numeros racionales
-rational_t rational_t::multiply(const rational_t& r)
-{ 
+rational_t rational_t::multiply(const rational_t& r) { 
   int num = get_num() * r.get_num();
   int den = get_den() * r.get_den();
   rational_t rational(num, den);
@@ -183,19 +183,58 @@ rational_t rational_t::divide(const rational_t& r) {
 //  return rational;
 //}
 
+// Método que comprueba que un numero racional es entero o no 
+//bool rational_t::compruebaSiEsEnteroONo(const rational_t&) {
+//  return(get_num() % get_den() == 0);
+//}
+
+//rational_t rational_t::rational_factorial(const rational_t& r) {
+//  int num = get_num();
+//  int den = get_den();
+
+//  int num_fact = 1;
+//  int den_fact = 1; 
+
+//  for(int i = num; i > 0; i--) {
+//    num_fact *= i;
+//  }
+
+//  for (int j = den; j > 0; j--){
+//    den_fact *= j;
+//  }
+
+//  return rational_t(num_fact, den_fact); 
+//}
+
+// Método que hace el cuadrado de un numero racional
+//rational_t  rational_t::rational_square(const rational_t&) {
+//  int num = get_num();
+//  int den = get_den();
+
+//  int squared_num = (num * num);
+//  int squared_den = (den * den);
+
+//  return rational_t(squared_num, squared_den);
+//}
+
+//rational_t rational_t::rational_reverse(const rational_t&) {
+//    int inversed_num = get_den();
+//    int inversed_den = get_num(); 
+
+//    rational_t rational(inversed_num, inversed_den); 
+//    return rational;  
+//}
+
+
 // E/S
 // Método que muestra por pantalla un número racional
-void
-rational_t::write(ostream& os) const
-{
+void rational_t::write(ostream& os) const {
   os << get_num() << "/" << get_den() << "=" << value() << endl;
 }
 
 
 // Método que lee un número racional solicitado por pantalla 
-void 
-rational_t::read(istream& is)
-{
+void rational_t::read(istream& is) {
   cout << "Numerador? ";
   is >> num_;
   cout << "Denominador? ";

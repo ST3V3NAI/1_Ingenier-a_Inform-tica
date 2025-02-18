@@ -22,6 +22,7 @@ using namespace std;
 int main()
 {
   rational_t a(1, 2), b(3), c;
+  rational_t d(4, 7);
 
   // El programa muestra los valores inicialidos y el de c = 0
   cout << "a.value()= " << a.value() << endl;
@@ -66,7 +67,6 @@ int main()
   cout << "a / b: ";
   a.divide(b).write();
 
-
 // Hace el cuadrado de los valores de a y de b
 //  cout << "a^2 + b^2: ";
 //  a.cuadrado(b).write();
@@ -83,5 +83,27 @@ int main()
 // cout << "sqrt(rational) = "; 
 // b.squared_den(b);
 
-  return 0;
+// Comprueba que se un rational sea entero o np
+//   cout << "Es entero el racional? " << a.value() << " "; 
+//   if(a.compruebaSiEsEnteroONo(a) == 1) {
+//    cout << "Lo es" << endl;
+//   } else {
+//    cout << "No lo es" << endl; 
+//   }
+
+// Como resultado da el factorial de un numero racional
+//   rational_t resultado = d.rational_factorial(d.value());
+//   cout << "El factorial del numero " << d.value() << " es: " << resultado.value();
+
+// Hace el cuadrado de un numero racional 
+//    rational_t resultado = d.rational_square(d.value());
+//    cout << "El cuadrado del numero " << d.value() << " es " << resultado.value() << std::endl;
+
+// Hace la inversa de un número racional 
+//    rational_t resultado = d.rational_reverse(d.value());
+//    cout << "El reverso del numero racional: " << d.value() << " da: " << resultado.value() << "\n"; 
+
+   return 0;
 }
+
+  
