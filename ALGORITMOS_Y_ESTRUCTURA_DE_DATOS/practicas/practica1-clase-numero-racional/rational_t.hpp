@@ -15,7 +15,7 @@
 #include <iostream> // Para flujos de entrada y salida 
 #include <cassert> // Similar a una función booleana, para verificar condiciones en tiempo de ejecución
 #include <cmath> // Para funciones matematica
-#include <numeric> // Para std::gcd
+#include <numeric> // Para std::gcd y simplificacion
 
 // pauta de estilo [5]
 # define EPSILON 1e-6 // Constante Epsilon 
@@ -55,8 +55,6 @@ public:
   
   // FASE III
   // Métodos de operaciones aritméticas
-  //  rational_t simplify(const rational_t&) const; 
-  int lowest_common_multiple(const rational_t&);
   rational_t add(const rational_t&);
   rational_t substract(const rational_t&);
   rational_t multiply(const rational_t&);
@@ -66,9 +64,15 @@ public:
   // rational_t resta_unidad(const rational_t&);
   // rational_t squared_den(const rational_t&); 
 
+  // Método para simplificar fracciones
+  rational_t simplify(); 
+
   // Métodos de escritura y lectura por pantalla de numeros racionales
   void write(ostream& = cout) const;
   void read(istream& = cin);
+
+  // Método para el mcm
+  int lowest_common_multiple(const rational_t&);
   
   // Modificacion 1: 
   // bool compruebaSiEsEnteroONo(const rational_t&);

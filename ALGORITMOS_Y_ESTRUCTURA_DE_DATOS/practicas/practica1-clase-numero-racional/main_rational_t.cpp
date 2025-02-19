@@ -22,7 +22,7 @@ using namespace std;
 int main()
 {
     rational_t a(1, 2), b(3), c;
-//  rational_t a(3,4), b(2,5), c; 
+//  rational_t a(1,6), b(1,6), c; 
 
   // El programa muestra los valores inicialidos y el de c = 0
   cout << "a.value()= " << a.value() << endl;

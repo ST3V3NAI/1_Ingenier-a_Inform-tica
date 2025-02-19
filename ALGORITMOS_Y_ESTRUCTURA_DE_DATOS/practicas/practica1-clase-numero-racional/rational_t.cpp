@@ -56,6 +56,8 @@ double rational_t::value() const {
 bool rational_t::is_equal(const rational_t& r, const double precision) const { 
   if(fabs(value() - r.value()) < precision) {
     return true;
+  } else if (fabs(value()) == 0) {
+    return true; 
   } else {
     return false;
   }
@@ -83,19 +85,10 @@ bool rational_t::is_less(const rational_t& r, const double precision) const {
 
 
 // Método de simplificación
-//rational_t rational_t::simplify(const rational_t& r) const {
-//  int gcd = std::gcd(num_, den_);
-//  int new_num = num_ / gcd;
-//  int new_den = den_ / gcd;
-
-//  if (new_den < 0) {
-//    new_num = -new_num;
-//    new_den = -new_den;
-//  }
-
-//  return rational_t(new_num, new_den);
-//}
-
+rational_t rational_t::simplify() {
+    int divisor = std::gcd(num_, den_); // Calcula el MCD (Maximo común divisor)
+    return rational_t(num_ / divisor, den_ / divisor); // Retorna la fracción simpliciada
+}
 
 // Método de m.c.m
 int rational_t::lowest_common_multiple(const rational_t& r) {
@@ -106,10 +99,12 @@ int rational_t::lowest_common_multiple(const rational_t& r) {
 // Método que devuelve la suma de dos números racionales
 rational_t rational_t::add(const rational_t& r) { 
 //  int num = get_num() * r.get_den() + r.get_num() * get_den();
-  int lcm = lowest_common_multiple(r);
+  // Calcula el mínimo común múltiplo (mcm) entre el denominador del objeto actual y el de r
+  int lcm = lowest_common_multiple(r); 
+  // Se multiplica el numerador de cada fracción por el factor necesario para escalar su denominador a lcm
   int num = (get_num() * (lcm / get_den())) + (r.get_num() * (lcm / r.get_den()));
   rational_t rational(num, lcm);
-  return rational;
+  return rational.simplify();
 }
 
 
@@ -123,11 +118,13 @@ rational_t rational_t::add(const rational_t& r) {
 // Método que devuelve la resta de dos números racionales
 rational_t rational_t::substract(const rational_t& r) {
 //  int num = get_num() * r.get_den() - (r.get_num() * get_den());
+   // Calcula el mínimo común múltiplo (mcm) entre el denominador del objeto actual y el de r
   int lcm = lowest_common_multiple(r);
+    // Se multiplica el numerador de cada fracción por el factor necesario para escalar su denominador a lcm
   int num = (get_num() * (lcm / get_den())) - (r.get_num() * (lcm / r.get_den()));
   //int den = get_den() * r.get_den();
   rational_t rational(num, lcm);
-  return rational; 
+  return rational.simplify(); // Retorna el resultado simplificado
 }
 
 // rational_t rational_t::substract(const rational_t& r) {
@@ -142,7 +139,7 @@ rational_t rational_t::multiply(const rational_t& r) {
   int num = get_num() * r.get_num();
   int den = get_den() * r.get_den();
   rational_t rational(num, den);
-  return rational;
+  return rational.simplify();
 }
 
 
@@ -151,7 +148,7 @@ rational_t rational_t::divide(const rational_t& r) {
   int num = get_num() * r.get_den();
   int den = get_den() * r.get_num();
   rational_t rational(num,den);
-  return rational;
+  return rational.simplify();
 }
 
 
@@ -195,8 +192,8 @@ rational_t rational_t::divide(const rational_t& r) {
 //  int num = get_num();
 //  int den = get_den();
 
-//  int num_fact = 1;
-//  int den_fact = 1; 
+//  int num_fact{1};
+//  int den_fact{1}; 
 
 //  for(int i = num; i > 0; i--) {
 //    num_fact *= i;
