@@ -21,8 +21,8 @@ using namespace std;
 
 int main()
 {
-  rational_t a(1, 2), b(3), c;
-  rational_t d(4, 7);
+    rational_t a(1, 2), b(3), c;
+//  rational_t a(3,4), b(2,5), c; 
 
   // El programa muestra los valores inicialidos y el de c = 0
   cout << "a.value()= " << a.value() << endl;
@@ -101,7 +101,11 @@ int main()
 
 // Hace la inversa de un número racional 
 //    rational_t resultado = d.rational_reverse(d.value());
-//    cout << "El reverso del numero racional: " << d.value() << " da: " << resultado.value() << "\n"; 
+//    cout << "El reverso del numero racional: " << d.value() << " da: " << resultado.value() << "\n";
+
+// Modificación: 
+//  cout << "Enteros entre numeradores: ";
+//  x.bucle_num(y);
 
    return 0;
 }

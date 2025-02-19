@@ -13,9 +13,9 @@
 #pragma once // Evita que el archivo se incluya varias veces en el proyecto
 
 #include <iostream> // Para flujos de entrada y salida 
-#include <cassert> // Similar a una función booleana, para verificar condiciones en tiempo de ejecuciób
+#include <cassert> // Similar a una función booleana, para verificar condiciones en tiempo de ejecución
 #include <cmath> // Para funciones matematica
-// #include <numeric> // Para std::gcd
+#include <numeric> // Para std::gcd
 
 // pauta de estilo [5]
 # define EPSILON 1e-6 // Constante Epsilon 
@@ -56,7 +56,7 @@ public:
   // FASE III
   // Métodos de operaciones aritméticas
   //  rational_t simplify(const rational_t&) const; 
-  //  rational_t lowest_common_multiple(const rational_t&);
+  int lowest_common_multiple(const rational_t&);
   rational_t add(const rational_t&);
   rational_t substract(const rational_t&);
   rational_t multiply(const rational_t&);
@@ -81,6 +81,9 @@ public:
 
   // Modificiación Inventada 2: 
   // rational_t rational_reverse(const rational_t&);
+
+  // Modificación 3: 
+  //void bucle_num(const rational_t& y);
 
 private:
   // pauta de estilo [11]: nombre de los atributos seguido de "_"

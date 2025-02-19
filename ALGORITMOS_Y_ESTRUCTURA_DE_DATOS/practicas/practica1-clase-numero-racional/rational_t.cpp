@@ -98,16 +98,17 @@ bool rational_t::is_less(const rational_t& r, const double precision) const {
 
 
 // Método de m.c.m
-//rational_t rational_t::lowest_common_multiple(const rational_t& r) {
-//  return (den_ * r.get_den() / std::gcd(den_, r.get_den()));
-//}
+int rational_t::lowest_common_multiple(const rational_t& r) {
+  return (den_ * r.get_den() / std::gcd(den_, r.get_den()));
+}
 
 // operaciones
 // Método que devuelve la suma de dos números racionales
 rational_t rational_t::add(const rational_t& r) { 
-  int num = get_num() * r.get_den() + r.get_num() * get_den();
-  int den = get_den() * r.get_den();
-  rational_t rational(num, den);
+//  int num = get_num() * r.get_den() + r.get_num() * get_den();
+  int lcm = lowest_common_multiple(r);
+  int num = (get_num() * (lcm / get_den())) + (r.get_num() * (lcm / r.get_den()));
+  rational_t rational(num, lcm);
   return rational;
 }
 
@@ -121,9 +122,11 @@ rational_t rational_t::add(const rational_t& r) {
 
 // Método que devuelve la resta de dos números racionales
 rational_t rational_t::substract(const rational_t& r) {
-  int num = get_num() * r.get_den() - (r.get_num() * get_den());
-  int den = get_den() * r.get_den();
-  rational_t rational(num, den);
+//  int num = get_num() * r.get_den() - (r.get_num() * get_den());
+  int lcm = lowest_common_multiple(r);
+  int num = (get_num() * (lcm / get_den())) - (r.get_num() * (lcm / r.get_den()));
+  //int den = get_den() * r.get_den();
+  rational_t rational(num, lcm);
   return rational; 
 }
 
@@ -224,6 +227,16 @@ rational_t rational_t::divide(const rational_t& r) {
 //    rational_t rational(inversed_num, inversed_den); 
 //    return rational;  
 //}
+
+// Modificación 
+// void rational_t::bucle_num(const rational_t& y) {
+//    for(int i = num_; i < y.get_num(); i++) {
+//      if(i % den_ == 0) {
+//        cout << i << " ";
+//      }
+//    }
+//    cout << endl; 
+//  }
 
 
 // E/S
