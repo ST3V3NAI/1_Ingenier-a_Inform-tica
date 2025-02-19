@@ -142,90 +142,16 @@ rational_t rational_t::divide(const rational_t& r) {
   return rational.simplify();
 }
 
-
-// Método que hace la raíz cuadrada de la suma
-//rational_t rational_t::raiz_cuadrada(const rational_t& r) {
-//  int num = (get_num() * r.get_den() + r.get_num() * get_den());
-//  int den = (get_den() * r.get_den());
-//  rational_t rational(sqrt(num), sqrt(den));
-//  return rational; 
-//}
-
-// Método que realiza la raíz del denominador
-// rational_t rational_t::squared_den(const rational_t& r) {
-//   cout << num_ << " / simbolo raiz " << den_ << ": "; 
-//   double new_den = sqrt(den_);
-//   return rational_t(num_, new_den); 
-//}
-
-// Método que devuelve el cuadrado de la suma de los dos racionales
-// rational_t rational_t::cuadrado(const rational_t& r) {
-//  int num = (get_num() * r.get_den() + r.get_num() * get_den()) * (get_num() * r.get_den() + r.get_num() * get_den());
-//  int den = (get_den() * r.get_den()) * (get_den() * r.get_den()) ;
-//  rational_t rational(num, den);
-//  return rational; 
-// }
-
-// Método que resta una unidad a un numero racional dado
-// rational_t rational_t::resta_unidad(const rational_t& r){
-//  int num = get_num() * r.get_den() - (r.get_num() * get_den());
-//  int den =  get_den() * r.get_den();
-//  rational_t rational(num, den); 
-//  return rational;
-//}
-
-// Método que comprueba que un numero racional es entero o no 
-//bool rational_t::compruebaSiEsEnteroONo(const rational_t&) {
-//  return(get_num() % get_den() == 0);
-//}
-
-//rational_t rational_t::rational_factorial(const rational_t& r) {
-//  int num = get_num();
-//  int den = get_den();
-
-//  int num_fact{1};
-//  int den_fact{1}; 
-
-//  for(int i = num; i > 0; i--) {
-//    num_fact *= i;
-//  }
-
-//  for (int j = den; j > 0; j--){
-//    den_fact *= j;
-//  }
-
-//  return rational_t(num_fact, den_fact); 
-//}
-
-// Método que hace el cuadrado de un numero racional
-//rational_t  rational_t::rational_square(const rational_t&) {
-//  int num = get_num();
-//  int den = get_den();
-
-//  int squared_num = (num * num);
-//  int squared_den = (den * den);
-
-//  return rational_t(squared_num, squared_den);
-//}
-
-//rational_t rational_t::rational_reverse(const rational_t&) {
-//    int inversed_num = get_den();
-//    int inversed_den = get_num(); 
-
-//    rational_t rational(inversed_num, inversed_den); 
-//    return rational;  
-//}
-
-// Modificación prueba
-// void rational_t::bucle_num(const rational_t& y) {
-//    for(int i = num_; i < y.get_num(); i++) {
-//      if(i % den_ == 0) {
-//        cout << i << " ";
-//      }
-//    }
-//    cout << endl; 
-//  }
-
+// MODIFICACIÓN DE HOY: x.operador(y)
+void rational_t::suma_par(const rational_t &y) {
+    int suma_total{0};
+    for(int i = num_; i < y.get_num(); i++) {
+       if((get_num() % get_den() == 0) && ((i / get_den()) % 2 == 0)){
+          suma_total += (i / get_den());
+       }
+    }
+    cout << suma_total << endl;
+}
 
 // E/S
 // Método que muestra por pantalla un número racional

@@ -73,21 +73,9 @@ public:
 
   // Método para el mcm
   int lowest_common_multiple(const rational_t&);
-  
-  // Modificacion Inventada: 
-  // bool compruebaSiEsEnteroONo(const rational_t&);
 
-  // Modificacion Inventada:
-  // rational_t rational_factorial(const rational_t&);
-
-  // Modificación Inventada:
-  // rational_t rational_square(const rational_t&);
-
-  // Modificiación Inventada 2: 
-  // rational_t rational_reverse(const rational_t&);
-
-  // Modificación Inventada: 
-  //void bucle_num(const rational_t& y);
+  // Modificación HOY
+  void suma_par(const rational_t &y);
 
 private:
   // pauta de estilo [11]: nombre de los atributos seguido de "_"
