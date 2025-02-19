@@ -1,6 +1,6 @@
 # Nombre: Steven Abolaji Ibidokun
-# Fecha de la última modificación: 18/02/25
-# Hora de la última modificación: 17:47
+# Fecha de la última modificación: 19/02/25
+# Hora de la última modificación: 12:19
         .data
 strTitulo: .ascii "\nPR1. Principios de Computadores.\n"; 
                 .ascii "\nUn numero primo es un natural mayor que 1 que es divisble\n" 
@@ -19,10 +19,9 @@ cadFinDePrograma: .asciiz "\nFin del programa.\n"
         # $s0 -> limite_inferior 
         # $s1 -> limite_superior
         # $s2 -> parameter_i
-        # $t3 -> parameter_j
-        # $t4 -> resto de la división
-        # $s3 -> verificador de EsPrimo
-        
+        # $s4 -> parameter_j
+        # $s5 -> resto de la división
+        # $s3 -> verificador de EsPrimo     
 # -----------------------------------------------------------------------------------------------------------------------------
 main: 
 # #include <iostream>
@@ -88,10 +87,7 @@ while_not_true_1:
         li $v0, 4                       # Instrucción para imprimir string
         la $a0, cadError                # Llamada a la dirección de la cadena de Error
         syscall                         # Llamada al sistema
-
-        li $v0, 11                      # Instrucción para imprimir un caracter
-        li $a0, '\n'                    # Llamada a la dirección de un caracter espacio
-        syscall                         # Llamada al sistema
+        
         j bucle_while_true              # Saltamos al bucle while_true
 
 while_not_true_2: 
@@ -99,9 +95,6 @@ while_not_true_2:
         la $a0, cadError                # Llamada a la dirección de la cadena de Error
         syscall                         # Llamada al sistema
 
-        li $v0, 11                      # Instrucción para imprimir un caracter
-        li $a0, '\n'                    # Llamada a la dirección de un caracter espacio
-        syscall                         # Llamada al sistema
         j bucle_while_true              # Saltamos al bucle while_true
 
 bucle_for: 
@@ -115,18 +108,18 @@ for_dentro:
 
 bucle_for_2: 
 #         for(parameter_j = 2; parameter_j < parameter_i; parameter_j++) {
-        li $t3, 2                       # Cargamos de forma inmediata $t3 = 2
+        li $s4, 2                       # Cargamos de forma inmediata $t3 = 2
 for_dentro_2:
-        bge $t3, $s2, if_bucle_for_2_dentro
+        bge $s4, $s2, if_bucle_for_2_dentro
 #             if(parameter_i % parameter_j == 0) {
 
 if_dentro: 
-       div $s2, $t3                    # Dividimos $t0 / $t3 
-       mfhi $t4                        # Almacenamos el resto en $t4
+       div $s2, $s4                    # Dividimos $s2 / $s4
+       mfhi $s5                        # Almacenamos el resto en $s5
 
-       beq $t4,$zero, marcar_no_primo  # En caso de que ($t4 == 0) -> bucle_for
+       beq $s5,$zero, marcar_no_primo  # En caso de que ($s5 == 0) -> bucle_for
 
-       addi $t3, 1                     
+       addi $s4, 1                     
        j for_dentro_2                  # Continua el bucle
 #               esPrimo = false; 
 #               break; 
