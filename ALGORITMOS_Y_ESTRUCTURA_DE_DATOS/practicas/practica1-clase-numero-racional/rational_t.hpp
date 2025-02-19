@@ -75,7 +75,7 @@ public:
   int lowest_common_multiple(const rational_t&);
 
   // Modificación HOY
-  void suma_par(const rational_t &y);
+  void suma_par(const rational_t& y);
 
 private:
   // pauta de estilo [11]: nombre de los atributos seguido de "_"

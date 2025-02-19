@@ -68,7 +68,7 @@ int main()
   a.divide(b).write();
 
   // Modificación
-  cout << "La suma total es:"; 
+  cout << "La suma total es: "; 
   a.suma_par(b); 
 
    return 0;

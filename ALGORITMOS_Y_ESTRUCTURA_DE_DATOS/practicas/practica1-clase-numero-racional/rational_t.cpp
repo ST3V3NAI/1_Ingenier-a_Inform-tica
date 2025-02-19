@@ -143,10 +143,10 @@ rational_t rational_t::divide(const rational_t& r) {
 }
 
 // MODIFICACIÓN DE HOY: x.operador(y)
-void rational_t::suma_par(const rational_t &y) {
+void rational_t::suma_par(const rational_t& y) {
     int suma_total{0};
-    for(int i = num_; i < y.get_num(); i++) {
-       if((get_num() % get_den() == 0) && ((i / get_den()) % 2 == 0)){
+    for(int i = get_num(); i <= y.get_num(); i++) {
+       if((i % get_den() == 0) && ((i / get_den()) % 2 == 0)){
           suma_total += (i / get_den());
        }
     }
