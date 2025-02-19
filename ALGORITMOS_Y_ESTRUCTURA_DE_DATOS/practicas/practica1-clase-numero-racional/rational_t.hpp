@@ -1,5 +1,5 @@
 // AUTOR: Steven Abolaji Ibidokun 
-// FECHA: 10/02/25
+// FECHA: 19/02/25
 // EMAIL: alu0101619613@ull.edu.es
 // VERSION: 1.0
 // ASIGNATURA: Algoritmos y Estructuras de Datos
@@ -74,10 +74,10 @@ public:
   // Método para el mcm
   int lowest_common_multiple(const rational_t&);
   
-  // Modificacion 1: 
+  // Modificacion Inventada: 
   // bool compruebaSiEsEnteroONo(const rational_t&);
 
-  // Modificacion 2:
+  // Modificacion Inventada:
   // rational_t rational_factorial(const rational_t&);
 
   // Modificación Inventada:
@@ -86,7 +86,7 @@ public:
   // Modificiación Inventada 2: 
   // rational_t rational_reverse(const rational_t&);
 
-  // Modificación 3: 
+  // Modificación Inventada: 
   //void bucle_num(const rational_t& y);
 
 private:

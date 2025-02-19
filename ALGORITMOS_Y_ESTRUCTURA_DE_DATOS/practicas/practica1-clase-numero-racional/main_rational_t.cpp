@@ -1,5 +1,5 @@
 // AUTOR: Steven Abolaji Ibidokun 
-// FECHA: 10/02/25
+// FECHA: 19/02/25
 // EMAIL: alu0101619613@ull.edu.es
 // VERSION: 1.0
 // ASIGNATURA: Algoritmos y Estructuras de Datos
@@ -22,7 +22,6 @@ using namespace std;
 int main()
 {
     rational_t a(1, 2), b(3), c;
-//  rational_t a(1,6), b(1,6), c; 
 
   // El programa muestra los valores inicialidos y el de c = 0
   cout << "a.value()= " << a.value() << endl;

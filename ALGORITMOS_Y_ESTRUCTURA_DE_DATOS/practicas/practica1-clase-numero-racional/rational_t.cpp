@@ -1,5 +1,5 @@
 // AUTOR: Steven Abolaji Ibidokun
-// FECHA: 10/02/25
+// FECHA: 19/02/25
 // EMAIL: alu0101619613@ull.edu.es
 // VERSION: 1.0
 // ASIGNATURA: Algoritmos y Estructuras de Datos
@@ -66,23 +66,14 @@ bool rational_t::is_equal(const rational_t& r, const double precision) const {
 
 // Método que comprueba si un número racional es mayor que otro
 bool rational_t::is_greater(const rational_t& r, const double precision) const {
-  if((value() - r.value()) > precision) {
-    return true;
-  } else {
-    return false;
-  }
+  return((value() - r.value()) > precision);
 }
 
 
 // Método que comprueba si un número racional es menor que otro
 bool rational_t::is_less(const rational_t& r, const double precision) const {
-  if((r.value() - value()) > precision) {
-    return true;
-  } else {
-    return false;
-  }
+  return((r.value() - value()) > precision);
 }
-
 
 // Método de simplificación
 rational_t rational_t::simplify() {
@@ -225,7 +216,7 @@ rational_t rational_t::divide(const rational_t& r) {
 //    return rational;  
 //}
 
-// Modificación 
+// Modificación prueba
 // void rational_t::bucle_num(const rational_t& y) {
 //    for(int i = num_; i < y.get_num(); i++) {
 //      if(i % den_ == 0) {
