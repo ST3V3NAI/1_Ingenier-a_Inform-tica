@@ -21,11 +21,12 @@
 
 using namespace std;
 
-class rational_t
-{
+class rational_t {
   // pautas de estilos [44] y [73]: primero "public" y después "private"
 public:
+  // Constructor de la clase rational_t
   rational_t(const int = 0, const int = 1);
+  // Destrutcor de la clase rational_t
   ~rational_t() {}
   
   // pauta de estilo [71]: indentación a 2 espacios
@@ -38,24 +39,32 @@ public:
   void set_num(const int);
   void set_den(const int);
 
+  // Método para obtener el valor decimal
   double value(void) const;
+  // Método para obtener el opuesto
   rational_t opposite(void) const;
+  // Método para obtener el reciproco
   rational_t reciprocal(void) const;
 
+  // Métodos de comparacion de numeros racionales
   bool is_equal(const rational_t&, const double precision = EPSILON) const;
   bool is_greater(const rational_t&, const double precision = EPSILON) const;
   bool is_less(const rational_t&, const double precision = EPSILON) const;
 
+
+  // Métodos de suma, resta, multiplicación y división de numeros racionales
   rational_t add(const rational_t&) const;
   rational_t substract(const rational_t&) const;
   rational_t multiply(const rational_t&) const;
   rational_t divide(const rational_t&) const;
 
+  // Métodos de escritura y de lectura
   void write(ostream& os = cout) const;
   void read(istream& is = cin);
   
 private:
   // pauta de estilo [11]: nombre de los atributos seguido de "_"
+  // Atributos de la clase rational
   int num_, den_;
 };
 

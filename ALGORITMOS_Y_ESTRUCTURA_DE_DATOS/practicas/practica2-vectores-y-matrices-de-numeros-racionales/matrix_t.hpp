@@ -10,18 +10,18 @@
 
 #pragma once
 
-#include <iostream>
-#include <cassert>
+#include <iostream> // Para flujos de entrada y salida
+#include <cassert>  // Para comprobar funciones en tiempo de ejecución
 
 #include "vector_t.hpp"
 
 using namespace std;
 
-template<class T>
-class matrix_t
-{
+template<class T> class matrix_t {
 public:
+  // Constructor de la clase matrix_t
   matrix_t(const int = 0, const int = 0);
+  // Destructor de la clase matrix_t
   ~matrix_t();
   
   void resize(const int, const int);
@@ -41,10 +41,12 @@ public:
   // operaciones y operadores para la multplicacion matricial
   void multiply(const matrix_t<T>&, const matrix_t<T>&);
 
+  // Método de escritura y de lectura
   void write(ostream& = cout) const;
   void read(istream& = cin);
 
 private:
+// Atributos de clase matrix_t
   int m_, n_; // m_ filas y n_ columnas
   vector_t<T> v_;
   
