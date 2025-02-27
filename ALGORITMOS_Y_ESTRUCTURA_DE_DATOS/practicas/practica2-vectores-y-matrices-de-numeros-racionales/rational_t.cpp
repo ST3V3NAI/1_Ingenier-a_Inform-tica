@@ -161,13 +161,13 @@ void rational_t::read(istream& is) {
 }
 
 
-
+// Sobrecarga del operador de inserción
 ostream& operator<<(ostream& os, const rational_t& r) {
   r.write(os);
   return os;
 }
 
-
+// Sobrecarga del operador de extracción
 istream& operator>>(istream& is, rational_t& r) {
   r.read(is);
   return is;
