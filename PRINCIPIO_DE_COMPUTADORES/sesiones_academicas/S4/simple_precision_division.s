@@ -1,6 +1,16 @@
 # División de números flotantes en simple precisión
 
-.text
+    .data
+intro_msg: .asciiz "División de números flotantes en simple precisión\n"
+request_dividendo_msg: .asciiz "Introduce el dividendo: "
+request_divisor_msg: .asciiz "Introduce el valor del divisor: "
+result_msg: .asciiz "El resultado es: "
+indet_msg: .asciiz "Indeterminación\n"
+positive_infinite_msg: .asciiz "Más infinito\n"
+negative_infinite_msg: .asciiz "Menos infinito\n"
+float_zero: .float 0.0
+
+    .text
 main:
     # Imprimir mensaje de introducción
     la $a0, intro_msg
@@ -84,12 +94,3 @@ end:
     li $v0, 10
     syscall
 
-.data
-intro_msg: .asciiz "División de números flotantes en simple precisión\n"
-request_dividendo_msg: .asciiz "Introduce el dividendo: "
-request_divisor_msg: .asciiz "Introduce el valor del divisor: "
-result_msg: .asciiz "El resultado es: "
-indet_msg: .asciiz "Indeterminación\n"
-positive_infinite_msg: .asciiz "Más infinito\n"
-negative_infinite_msg: .asciiz "Menos infinito\n"
-float_zero: .float 0.0

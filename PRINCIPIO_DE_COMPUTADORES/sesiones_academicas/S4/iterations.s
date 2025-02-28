@@ -1,8 +1,15 @@
 # Iteraciones necesarias para dividir entre 2 y llegar a 0.00005
 
-.text
+    .data
+intro_msg: .asciiz "Calculadora de iteraciones.\n"
+explanation_msg: .asciiz "Introduce un número flotante de doble precisión para saber cuántas veces habrá que dividir entre 2 para llegar a 0.00005: "
+final_msg: .asciiz "El número de iteraciones necesarias es: "
+limit: .double 0.00005
+divisor: .double 2.0
+
+    .text
 main:
-    # Imprimir en consola la introducción
+     # Imprimir en consola la introducción
     la $a0, intro_msg      # Cargar en el registro el mensaje de introducción
     li $v0, 4              # Cargar la instrucción print string
     syscall                # Llamada al sistema
@@ -48,9 +55,4 @@ finish:
     li $v0, 10             # Cargar la instrucción de finalizar el programa
     syscall                # Llamada al sistema
 
-.data
-intro_msg: .asciiz "Calculadora de iteraciones.\n"
-explanation_msg: .asciiz "Introduce un número flotante de doble precisión para saber cuántas veces habrá que dividir entre 2 para llegar a 0.00005: "
-final_msg: .asciiz "El número de iteraciones necesarias es: "
-limit: .double 0.00005
-divisor: .double 2.0
+
