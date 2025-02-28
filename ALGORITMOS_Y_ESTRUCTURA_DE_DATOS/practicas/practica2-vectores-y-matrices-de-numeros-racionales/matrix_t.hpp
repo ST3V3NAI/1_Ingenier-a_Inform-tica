@@ -54,19 +54,22 @@ private:
 };
 
 
-
-template<class T> matrix_t<T>::matrix_t(const int m, const int n) { 
+// Constructor de la clase matrix_t, inicializa la matriz con m filas y n columnas
+template<class T> 
+matrix_t<T>::matrix_t(const int m, const int n) { 
   m_ = m;
   n_ = n;
   v_.resize(m_ * n_);
 }
 
 
+// Destructor de la clase matrix_t
+template<class T> 
+matrix_t<T>::~matrix_t() {}
 
-template<class T> matrix_t<T>::~matrix_t() {}
-
-
-template<class T> void matrix_t<T>::resize(const int m, const int n) {
+// Método para redimensionar la matriz
+template<class T> 
+void matrix_t<T>::resize(const int m, const int n) {
   assert(m > 0 && n > 0);
   m_ = m;
   n_ = n;
@@ -74,48 +77,55 @@ template<class T> void matrix_t<T>::resize(const int m, const int n) {
 }
 
 
-
-template<class T> inline int matrix_t<T>::get_m() const {
+// Método para obtener el número de filas
+template<class T> 
+inline int matrix_t<T>::get_m() const {
   return m_;
 }
 
 
-
-template<class T> inline int matrix_t<T>::get_n() const {
+// Método para obtener el número de columnas
+template<class T> 
+inline int matrix_t<T>::get_n() const {
   return n_;
 }
 
 
-
-template<class T> T& matrix_t<T>::at(const int i, const int j) {
+// Método para acceder a un elemento de la matriz con verificación de límites
+template<class T> 
+T& matrix_t<T>::at(const int i, const int j) {
   assert(i > 0 && i <= get_m());
   assert(j > 0 && j <= get_n());
   return v_[pos(i, j)];
 }
 
 
-
-template<class T> T& matrix_t<T>::operator()(const int i, const int j) {
+// Sobrecarga del operador () para acceder a elementos como matriz(i, j)
+template<class T> 
+T& matrix_t<T>::operator()(const int i, const int j) {
   return at(i, j);
 }
 
 
-
-template<class T> const T& matrix_t<T>::at(const int i, const int j) const {
+// Método para acceder a un elemento de la matriz (versión constante)
+template<class T> 
+const T& matrix_t<T>::at(const int i, const int j) const {
   assert(i > 0 && i <= get_m());
   assert(j > 0 && j <= get_n());
   return v_[pos(i, j)];
 }
 
 
-
-template<class T> const T& matrix_t<T>::operator()(const int i, const int j) const {
+// Sobrecarga del operador () para acceso constante
+template<class T> 
+const T& matrix_t<T>::operator()(const int i, const int j) const {
   return at(i, j);
 }
 
 
-
-template<class T> void matrix_t<T>::write(ostream& os) const { 
+// Método para escribir la matriz en un flujo de salida
+template<class T> 
+void matrix_t<T>::write(ostream& os) const { 
   os << get_m() << "x" << get_n() << endl;
   for (int i = 1; i <= get_m(); ++i) {
     for (int j = 1; j <= get_n(); ++j)
@@ -126,8 +136,9 @@ template<class T> void matrix_t<T>::write(ostream& os) const {
 }
 
 
-
-template<class T> void matrix_t<T>::read(istream& is) {
+// Método para leer una matriz desde un flujo de entrada
+template<class T> 
+void matrix_t<T>::read(istream& is) {
   is >> m_ >> n_;
   resize(m_, n_);
   for (int i = 1; i <= get_m(); ++i)
@@ -135,8 +146,9 @@ template<class T> void matrix_t<T>::read(istream& is) {
       is >> at(i, j);
 }
 
-
-template<class T> inline int matrix_t<T>::pos(const int i, const int j) const {
+// Método privado para calcular la posición en el vector a partir de (i, j)
+template<class T> 
+inline int matrix_t<T>::pos(const int i, const int j) const {
   assert(i > 0 && i <= get_m());
   assert(j > 0 && j <= get_n());
   return (i - 1) * get_n() + (j - 1);
@@ -145,17 +157,23 @@ template<class T> inline int matrix_t<T>::pos(const int i, const int j) const {
 
 
 // FASE III: producto matricial
-template<class T> void matrix_t<T>::multiply(const matrix_t<T>& A, const matrix_t<T>& B) {
+template<class T>
+void matrix_t<T>::multiply(const matrix_t<T>& A, const matrix_t<T>& B) {
   assert(A.get_m() == B.get_n());
   resize(A.get_m(), B.get_n());
-  double producto{0};
-  for (int k{1}; k <= A.get_m(); ++k){
-    for (int i{1}; i <= A.get_m(); ++i) {
-      for (int j{1}; j <= A.get_n(); ++j) {
-        producto = producto + A.at(i,j) * B.at(j,k);       
+  // Recorrido de las filas de A (Último paso a realizar, cambio de número de
+  // fila: A[X][0], A[X][1], ...., A[X][m])
+  for (int i{1}; i <= A.get_m(); ++i){
+    // Recorrido de las filas de B (Lectura de los valores de cada columna de 
+    // B[X][0], B[X][1], ...., B[X][m])
+    for (int j{1}; j <= B.get_n(); ++j) {
+      T multiply{0};
+      // Recorrido de las columas de A (Primer paso a realizar, lectura de las
+      // columnas de A:  A[0][X], A[1][X], ...., A[X][n])
+      for (int k{1}; k <= A.get_n(); ++k) {
+        multiply += A(i, k) * B(k, j);       
       }
-      at(i, k) = producto;
-      producto = 0;
+      at(i, j) = multiply;
     }
   }
 }

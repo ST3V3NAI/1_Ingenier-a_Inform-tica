@@ -16,9 +16,7 @@
 
 // pauta de estilo [41]: ficheros de cabecera agrupados y separados
 #include "rational_t.hpp"
-
 #include "vector_t.hpp"
-
 #include "matrix_t.hpp"
 
 using namespace std;
