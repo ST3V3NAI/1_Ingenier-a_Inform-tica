@@ -180,19 +180,21 @@ matrix_t<T>::pos(const int i, const int j) const
 
 // FASE III: producto matricial
 template<class T>
-void
-matrix_t<T>::multiply(const matrix_t<T>& A, const matrix_t<T>& B)
-{
+void matrix_t<T>::multiply(const matrix_t<T>& A, const matrix_t<T>& B) {
   assert(A.get_m() == B.get_n());
   resize(A.get_m(), B.get_n());
-  double producto{0};
+  // Recorrido de las filas de A (Último paso a realizar, cambio de número de
+  // fila: A[X][0], A[X][1], ...., A[X][m])
   for (int k{1}; k <= A.get_m(); ++k){
-    for (int i{1}; i <= A.get_m(); ++i) {
+    // Recorrido de las filas de B (Lectura de los valores de cada columna de 
+    // B[X][0], B[X][1], ...., B[X][m])
+    for (int i{1}; i <= B.get_n(); ++i) {
+      // Recorrido de las columas de A (Primer paso a realizar, lectura de las
+      // columnas de A:  A[0][X], A[1][X], ...., A[X][n])
       for (int j{1}; j <= A.get_n(); ++j) {
-        producto = producto + A.at(i,j) * B.at(j,k);       
+        producto = A(k, j) * B(i, j);       
       }
-      at(i, k) = producto;
-      producto = 0;
+      at(k, j) = producto;
     }
   }
 }

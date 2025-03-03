@@ -7,7 +7,7 @@
 // COMENTARIOS: se indican entre [] las pautas de estilo aplicadas de
 //              "C++ Programming Style Guidelines"
 //              https://geosoft.no/development/cppstyle.html
-           https://geosoft.no/development/cppstyle.html
+//           https://geosoft.no/development/cppstyle.html
 
 #pragma once
 
