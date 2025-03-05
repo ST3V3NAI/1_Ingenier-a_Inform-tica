@@ -38,8 +38,11 @@ public:
   const T& at(const int, const int) const;
   const T& operator()(const int, const int) const;
   
-  // operaciones y operadores para la multplicacion matricial
+  // operaciones y operadores para la multiplicacion matricial
   void multiply(const matrix_t<T>&, const matrix_t<T>&);
+
+  // Metodo que suma las filas
+  void suma_filas_de_una_matriz(vector_t<int>& l);
 
   // Método de escritura y de lectura
   void write(ostream& = cout) const;
@@ -47,7 +50,7 @@ public:
 
 private:
 // Atributos de clase matrix_t
-  int m_, n_; // m_ filas y n_ columnas
+  int m_, n_; // m_ filas y n_ columnconst matrix_t<T>& Aas
   vector_t<T> v_;
   
   int pos(const int, const int) const;
@@ -176,4 +179,17 @@ void matrix_t<T>::multiply(const matrix_t<T>& A, const matrix_t<T>& B) {
       at(i, j) = multiply;
     }
   }
+}
+
+
+
+// Método que almacena en un vector la suma de las filas de una matriz
+template<class T>
+void matrix_t<T>::suma_filas_de_una_matriz(vector_t<int>& l) {
+ T suma_de_filas = 0; // Inicializamos la suma de filas
+ l.resize(get_m());  // Le ponemos longitud al vector
+ for(int i = 1; i <= get_m(); i++) // Recorremos la matriz tanto las filas como las columas
+   for(int j = 1; j <= get_n();j++) {
+     l[i - 1] = l[i - 1] + at(i ,j); // Almacenamos la suma
+   }
 }

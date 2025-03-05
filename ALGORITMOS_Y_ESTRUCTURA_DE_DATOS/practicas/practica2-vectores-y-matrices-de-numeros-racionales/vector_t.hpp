@@ -41,6 +41,8 @@ public:
   const T& at(const int) const;
   const T& operator[](const int) const;
 
+  bool EsCapicua(const std::vector<int>& vec) const; 
+
   // Métodos de escritura y lectura de la clase
   void write(ostream& = cout) const;
   void read(istream& = cin);
@@ -168,3 +170,16 @@ double scal_prod(const vector_t<rational_t>& v, const vector_t<rational_t>& w) {
   }
   return producto_escalar;  // Retorna el resultado
 }
+
+// Modificación
+template<class T>
+bool vector_t<T>::EsCapicua(const std::vector<int>& vec) const {
+  for(size_t i{0}; i < (sz_ / 2); i++) {
+    if(at(i) != at(sz_ - (i + 1))) {
+      cout << at(i + 1) << " " << at(sz_ - (i + 1)) << endl;
+      return false;
+    }
+  }
+  return true; 
+}
+

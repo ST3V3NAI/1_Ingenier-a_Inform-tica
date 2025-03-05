@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 // pauta de estilo [41]: ficheros de cabecera agrupados y separados
 #include "rational_t.hpp"
@@ -21,9 +22,20 @@
 
 using namespace std;
 
+//bool is_capicua(const std::vector<int>& vec) {
+//  int n = vec.size();
+//  for (int i = 0; i < n / 2; ++i) {
+//    if (vec[i] != vec[n - i - 1]) {
+//      return false;
+//    }
+//  }
+//  return true;
+//}
+
 int main()
 {
   rational_t a(1, 2), b(3);
+//  std::vector<int> p{1, 3, 5, 3, 1}; 
 
   // FASE I
   cout << "a + b: ";
@@ -62,6 +74,51 @@ int main()
   C.multiply(A, B);
   cout << "Multiplicación de matrices A y B: " << endl;
   C.write();
+
+
+  std::cout << "Modificación: " << std::endl; 
+  vector_t<int> p{0};
+  A.suma_filas_de_una_matriz(p);
+  cout << "La suma de los elementos de las filas B es: " << endl;
+  p.write();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  std::cout << "La traspuesta de C es: " << std::endl;
+//  C.traspuesta(C);
+//  C.write();
+
+//  std::cout << "La suma de los elementos de indice par es: " << std::endl;
+//  C.suma_indice_par();
+//  std::cout << std::endl;
+
+//  std::cout << "La diagonal principal de D es: " << std::endl;
+//  D.diagonal_principal(D);
+
+//  std::cout << "Recorido de una matriz: " << std::endl;
+//  C.recorrer();
+//  std::cout << std::endl;
+
+//  if(is_capicua(p) == 1) {
+//    cout << "El vector es capicua" << endl;
+//  } else {
+//    cout << "El vector no es capicua" << endl;
+//  }
   
   return 0;
 }
