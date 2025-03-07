@@ -31,6 +31,13 @@ int main() {
         cout << endl;
     }
 
+    cout << "\nElementos por DEBAJO de la diagonal secundaria:\n";
+    for (int i = 1; i < N; i++) {
+        for (int j = N - i; j < N; j++) {
+            cout << matriz[i][j] << " ";
+        }
+    }
+
     return 0;
 }
 

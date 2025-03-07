@@ -11,6 +11,55 @@
 
 // pauta de estilo [92]: comentarios multilínea usando solo "//"
 
+// Ver si una matriz es simetrica
+// bool is_symmetric(void) {
+
+// bool is_sym = true; 
+// for(int i = 1; (is_sym && i < N); i++) {
+//  for(int j = 0; (is_sym && j < N); j++){
+//     if(C[i][j] != C[j][i]) {
+//       return false; 
+//     }
+//  }
+//  return true;
+// }
+//}
+
+// Suma elementos diagonal principal 
+// template<class T>
+// void matrix_t<T>::sum_of_principle_diagonal(const matrix_t<T>& A) {
+// int suma_diagonal_principal = 0; 
+
+// for(int i = 0; i < N; i++) {
+//   suma_diagonal_principal += C[i][i];
+// }
+//}
+
+// Media diagonal secundaria
+//double media_diagonal_secundaria{0};
+//for(int i = 0; i < N; i++) {
+//  media_diagonal_secundaria += C[i][N - 1 - i];
+//}
+
+//media_diagonal_secundaria = (media_diagonal_secundaria / N);
+
+// subamatriz triangular inferior y suma 
+//   int suma = 0;
+//  std::cout << "Elementos de la submatriz triangular inferior: " << std::endl;
+//  for (int i = 0; i < N; i++) {
+//    for (int j = 0; j <= i; j++) {
+//    for (int j = i j <= N; j++) para la traingula superior
+//      if(i < j) { para la trianuglar superior
+//      if(i > j) {
+//      std::cout << C[i][j] << " ";
+//      suma += C[i][j];
+//      } 
+//    }
+//  }
+//  std::cout << std::endl; 
+//  std::cout << "La suma es: " << suma; 
+//}
+
 #include <iostream>
 #include <cmath>
 #include <vector>
