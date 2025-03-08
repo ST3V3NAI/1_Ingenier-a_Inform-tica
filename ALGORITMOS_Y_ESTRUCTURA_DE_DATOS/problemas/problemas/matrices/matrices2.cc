@@ -5,6 +5,7 @@ constexpr int N = 3;
 #include <iostream>
 
 int main() {
+  // Arreglo de arreglos de enteros
   int C[N][N] = {{ 2, 3, 4},
                  { 2, 3, 4},
                  { 2, 3, 4}};
@@ -16,5 +17,6 @@ int main() {
   }
 
   std::cout << "Suma de los elementos de la diagonal principal: " << suma_diagonal_principal << std::endl;
-
+  return 0; 
+  
 }

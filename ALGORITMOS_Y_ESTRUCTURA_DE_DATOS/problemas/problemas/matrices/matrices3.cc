@@ -9,13 +9,13 @@ int main() {
                  { 2, 9, 4},
                  { 3, 3, 4}};
 
-  double media_diagonal_secundaria{0};
+  double suma = 0; 
 
   for(int i = 0; i < N; i++) {
-    media_diagonal_secundaria += C[i][N - 1 - i];
+    suma += C[i][N - (i + 1)];
   }
 
-  media_diagonal_secundaria = (media_diagonal_secundaria / N);
+  float media_diagonal_secundaria = (suma / N); 
 
   std::cout << "La media de los elementos de la diagonal secundaria de una matriz: " << media_diagonal_secundaria << std::endl; 
 }
