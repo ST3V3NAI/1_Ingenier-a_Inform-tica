@@ -61,7 +61,6 @@ strTermina:	.asciiz	"\n\nTermina el programa\n"
     # $s1 -> s
     # $s2 -> x
     # $f28 -> f
-    # $t1 -> actualizador
     # $f30 -> cte{2.5}
 main: 
 #// Programa para evaluar polinomio tercer grado
@@ -134,7 +133,6 @@ do_while:
     move $s1, $v0
 #   } while (r > s);
     bgt $s0, $s1, do_while
-    beq $s0, $s1, termina_programa
     
     move $s2, $s0       # $s2 = $s0
     
@@ -148,7 +146,7 @@ for:
     cvt.s.w $f4, $f4
 #     f += x*c;
     mul.s $f6, $f4, $f24
-    mul.s $f28, $f28, $f6
+    add.s $f28, $f28, $f6
 #     f += x*x*b;
     mul.s $f6, $f4, $f4
     mul.s $f6, $f6, $f22
@@ -195,3 +193,4 @@ termina_programa:
     li $v0, 10
     syscall
 # }
+
