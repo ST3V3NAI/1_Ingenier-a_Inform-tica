@@ -1,3 +1,6 @@
+# Nombre del autor: Steven Abolaji Ibidokun
+# Fecha de la última modificación: 15:51
+
 #// Programa para evaluar polinomio tercer grado
 
 # #include <iostream>
@@ -57,10 +60,10 @@ strTermina:	.asciiz	"\n\nTermina el programa\n"
     # $f22 -> coeficiente b
     # $f24 -> coeficiente c
     # $f26 -> coeficiente d  
-    # $s0 -> r
-    # $s1 -> s
+    # $s0 -> limite inferior
+    # $s1 -> limite superior
     # $s2 -> x
-    # $f28 -> f
+    # $f28 -> resultado de la función
     # $f30 -> cte{2.5}
 main: 
 #// Programa para evaluar polinomio tercer grado
@@ -156,27 +159,27 @@ for:
     mul.s $f6, $f6, $f4
     mul.s $f6, $f6, $f20
     add.s $f28, $f28, $f6
-for_if: 
+    for_if: 
 #     if (f >= 2.5) {
-    li.s $f30, 2.5
-    c.lt.s $f28, $f30
-    bc1t actualizacion
+        li.s $f30, 2.5
+        c.lt.s $f28, $f30
+        bc1t actualizacion
 #       std::cout << "\nf(" << x << ") = " << f;
-    li $v0, 4
-    la $a0, strF
-    syscall
+        li $v0, 4
+        la $a0, strF
+        syscall
     
-    li $v0, 1
-    move $a0, $s2
-    syscall
+        li $v0, 1
+        move $a0, $s2
+        syscall
     
-    li $v0, 4
-    la $a0, strIgual
-    syscall
+        li $v0, 4
+        la $a0, strIgual
+        syscall
     
-    li $v0, 2
-    mov.s $f12, $f28
-    syscall
+        li $v0, 2
+        mov.s $f12, $f28
+        syscall
      
 #     }
 actualizacion: 
