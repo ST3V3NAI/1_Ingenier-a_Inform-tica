@@ -70,20 +70,23 @@ sparse_vector_t::sparse_vector_t(const int n) : pv_(n), nz_(0), n_(n) {}
 // este es el constructor que me va a hacer el polinomio disperso correcramente con los pares
 sparse_vector_t::sparse_vector_t(const vector_t<double>& v, const double eps)
     : pv_(), nz_(0), n_(0) {
-  n_ = v.get_size(); // n es el tamaño de nuestro vector
-  for (int i = 0; i < n_; i++) { // recorremos el vector 
-    if (IsNotZero(v[i], eps)) { // si resulta que no es 0, va a aumentar el NotZeros
-      nz_++;
+
+    n_ = v.get_size();  // Asignamos a nuestro vector el tamanño
+    for (int i = 0; i < n_; i++) { // Recorremos el vector y comprobamos que posiciones no son 0
+      if (v.at(i) != 0) {
+        nz_++;                     // Contamos las que no son 0
+      }
     }
-  }
-  pv_.resize(nz_); // el nuevo vector disperso tiene que medir los mismo que sin ceros
-  for (int i = 0, j = 0; i < n_; i++) { // recorremos el vector original
-    if(IsNotZero(v[i], eps)) { // si resulta que no es 0
-      pair_t<double> temp(v.at(i), i); // Declaramos temp de clase pair que haga pares con el valor y la posición que ocupa en realidad
-      pv_.set_val(j,temp); // lo guardamos en el vector de tamaño nz_ en todas las posiciones
-      j++; // avanzamos a la siguiente posición
+
+    pv_.resize(nz_);              // Ajustamos nuestro polinomio al tamaño de las posiciones que no fueron 0
+
+    for (int i = 0, p = 0; i < n_; i++) { // Recorremos de nuevo nuestro vector
+      if (v.at(i) != 0) {                 // En caso de que no sea 0
+        pair_double_t aux(v.get_val(i), i); // Declaramos una variable auxiliar para almacenar el indice y el valor del vector
+        pv_.at(p) = aux;                    // Y se lo mandamos al nuevo vector
+        p++;
+      }
     }
-  }
 }
 
 // constructor de copia
@@ -100,35 +103,43 @@ sparse_vector_t& sparse_vector_t::operator=(const sparse_vector_t& w) {
   return *this;
 }
 
-sparse_vector_t::~sparse_vector_t() {}
+// Destructor
+sparse_vector_t::~sparse_vector_t() {} 
 
+// Getter nz
 inline int sparse_vector_t::get_nz() const {
   return nz_;
 }
 
+// Getter n
 inline int sparse_vector_t::get_n() const {
   return n_;
 }
 
+// Getter-Setter
 pair_double_t& sparse_vector_t::at(const int i) {
   assert(i >= 0 && i < get_nz());
   return pv_[i];
 }
 
+// Sobrecrga del operador []
 pair_double_t& sparse_vector_t::operator[](const int i) {
   return at(i);
 }
 
+// Getter-Setter
 const pair_double_t& sparse_vector_t::at(const int i) const {
   assert(i >= 0 && i < get_nz());
   return pv_[i];
 }
 
+// Sobrecarga del operador[]
 const pair_double_t& sparse_vector_t::operator[](const int i) const {
   return at(i);
 }
 
 // E/S
+// Método de escritura
 void sparse_vector_t::write(std::ostream& os) const { 
   os << get_n() << "(" << get_nz() << "): [ ";
   for (int i = 0; i < get_nz(); i++)
@@ -136,6 +147,7 @@ void sparse_vector_t::write(std::ostream& os) const {
 	os << "]" << std::endl;
 }
 
+// Sobrecarga del operador de extracción
 std::ostream& operator<<(std::ostream& os, const sparse_vector_t& sv) {
   sv.write(os);
   return os;

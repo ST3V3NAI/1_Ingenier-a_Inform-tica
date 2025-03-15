@@ -93,7 +93,17 @@ double Polynomial::Eval(const double x) const {
 bool Polynomial::IsEqual(const Polynomial& pol, const double eps) const {
   bool differents = false;
   
-
+  // Comprobamos si el tamaño del vector es igual
+  if(get_size() != pol.get_size()) {
+    return differents; 
+  }
+  
+  // Recorremos el vector principal
+  for(int i = 0; i < get_size(); i++) {
+    if(fabs(get_val(i) - pol.get_val(i)) > eps) { // Comprobamos que los vectores sean igual
+      return differents; 
+    }
+  }
 
   return !differents;
 }
@@ -104,6 +114,7 @@ SparsePolynomial::SparsePolynomial(const SparsePolynomial& spol) {
 }
 
 // E/S
+// Método de escritura que escribe las x del Sparse Polynomial
 void SparsePolynomial::Write(std::ostream& os) const {
   os << get_n() << "(" << get_nz() << "): [ ";
   bool first{true};
@@ -118,6 +129,7 @@ void SparsePolynomial::Write(std::ostream& os) const {
   os << " ]" << std::endl;
 }
 
+// Sobrecarga del operador de Extracción
 std::ostream& operator<<(std::ostream& os, const SparsePolynomial& p) {
   p.Write(os);
   return os;
