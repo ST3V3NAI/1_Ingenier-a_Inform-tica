@@ -27,6 +27,7 @@ class Polynomial : public vector_t<double> {
 
   // destructor
   ~Polynomial() {};
+  
 
   // E/S
   void Write(std::ostream& = std::cout, const double eps = EPS) const;
@@ -34,6 +35,12 @@ class Polynomial : public vector_t<double> {
   // operaciones
   double Eval(const double) const;
   bool IsEqual(const Polynomial&, const double = EPS) const;
+
+  // Modification
+  Polynomial operator+(const Polynomial&);
+  Polynomial operator-(const Polynomial&);
+  Polynomial operator*(const Polynomial&);
+  Polynomial operator/(const Polynomial&);
  };
 
 
@@ -55,6 +62,24 @@ class SparsePolynomial : public sparse_vector_t {
   double Eval(const double) const;
   bool IsEqual(const SparsePolynomial&, const double = EPS) const;
   bool IsEqual(const Polynomial&, const double = EPS) const;
+
+  // Modificaciom
+  double Eval2(const int, const double) const;
+  double Eval3(const int, const double) const;
+  double Eval4(const double) const;
+
+  // Comparacion de polinomios
+  bool IsGreater(const SparsePolynomial&) const;
+  bool IsLess(const SparsePolynomial&) const;
+
+  // Mostrar el polinomio mas grande de dos polinomios
+  void MostrarMayor(const SparsePolynomial&) const;
+
+  // Impresion de polinomios al reves
+  void Inverse() const;
+
+   // Mayor indice entre dos polinomios
+  void MaxVal(const SparsePolynomial& spol) const;
 };
 
 // E/S
@@ -84,7 +109,7 @@ double Polynomial::Eval(const double x) const {
   double result{0.0};
   
   for (int i = 0; i < get_size(); i++) { // recorremos el vector
-    result += at(i) * pow(x, i); // y lo multiplicamos x elevado a su respectivo numero
+    result += get_val(i) * pow(x, i); // y lo multiplicamos x elevado a su respectivo numero
   }
   return result; // devuelve un numero doble con el resultado de la operacion 
 }
@@ -104,7 +129,6 @@ bool Polynomial::IsEqual(const Polynomial& pol, const double eps) const {
       return differents; 
     }
   }
-
   return !differents;
 }
 
@@ -175,6 +199,157 @@ bool SparsePolynomial::IsEqual(const Polynomial& pol, const double eps) const {
     }
   }
   return !differents;
+}
+
+// Modificacion, operaciones de dos polinomios representados por vectores densos
+Polynomial Polynomial::operator+(const Polynomial& pol) {
+  // poner el código aquí
+  int Tam_vec = 0;
+  if (get_size() - pol.get_size() < 0){
+    Tam_vec = get_size();
+  }else{
+    Tam_vec = pol.get_size();
+  }
+  double result = 0.0;
+  // declarar el vector resultado
+  Polynomial result_pol(Tam_vec);
+  for (int i{0}; i < Tam_vec; i++){
+    result = get_val(i) + pol.at(i);
+    // guardar el resultado en el vector
+    result_pol.set_val(i, result);
+  }
+  return result_pol;
+}
+Polynomial Polynomial::operator-(const Polynomial& pol) {
+  // poner el código aquí
+  int Tam_vec = 0;
+  if (get_size() - pol.get_size() < 0){
+    Tam_vec = get_size();
+  }else{
+    Tam_vec = pol.get_size();
+  }
+  double result = 0.0;
+  // declarar el vector resultado
+  Polynomial result_pol(Tam_vec);
+  for (int i{0}; i < Tam_vec; i++){
+    result = get_val(i) - pol.at(i);
+    // guardar el resultado en el vector
+    result_pol.set_val(i, result);
+  }
+  return result_pol;
+}
+Polynomial Polynomial::operator*(const Polynomial& pol) {
+  // poner el código aquí
+  int Tam_vec = 0;
+  if (get_size() - pol.get_size() < 0){
+    Tam_vec = get_size();
+  }else{
+    Tam_vec = pol.get_size();
+  }
+  double result = 0.0;
+  // declarar el vector resultado
+  Polynomial result_pol(Tam_vec);
+  for (int i{0}; i < Tam_vec; i++){
+    result = get_val(i) * pol.at(i);
+    // guardar el resultado en el vector
+    result_pol.set_val(i, result);
+  }
+  return result_pol;
+}
+Polynomial Polynomial::operator/(const Polynomial& pol) {
+  // poner el código aquí
+  int Tam_vec = 0;
+  if (get_size() - pol.get_size() < 0){
+    Tam_vec = get_size();
+  }else{
+    Tam_vec = pol.get_size();
+  }
+  double result = 0.0;
+  // declarar el vector resultado
+  Polynomial result_pol(Tam_vec);
+  for (int i{0}; i < Tam_vec; i++){
+    if (pol.at(i) == 0.0){ continue; }
+    result = get_val(i) / pol.at(i);
+    // guardar el resultado en el vector
+    result_pol.set_val(i, result);
+  }
+  return result_pol;
+}
+
+// Resultado de la suma de los coeficientes de un polinomio a partir de un indice dado
+double SparsePolynomial::Eval2(const int inx, const double x) const {
+  assert(inx >= 0 && inx < get_nz());
+  double result{0.0};
+  for (int i{inx}; i < get_nz(); i++){
+    result += at(i).get_val() * pow(x, at(i).get_inx());
+
+    //std:: cout << "i: " << i << " result: " << result << std::Tam_vecl;
+  }
+  return result;
+}
+double SparsePolynomial::Eval3(const int inx, const double x) const {
+  assert(inx >= 0 && inx < get_nz());
+  double result{0.0};
+  for (int i{inx}; i < get_nz(); i+=2){
+    result += at(i).get_val() * pow(x, at(i).get_inx());
+  }
+  return result;
+}
+
+// Comparar cual es el polinomio más grande
+bool SparsePolynomial::IsGreater(const SparsePolynomial& spol) const {
+  bool greater = false;
+  double eps = EPS;
+  // poner el código aquí
+  int Tam_vec = 0;
+  if (get_nz() - spol.get_nz() < 0){
+    Tam_vec = get_nz();
+  }else{
+    Tam_vec = spol.get_nz();
+  }
+  if (get_nz() > spol.get_nz()){ greater = true; }
+  if (get_nz() < spol.get_nz()){ greater = false; }
+  return greater;
+}
+
+// Comparar cual es el polinomio más pequeño
+bool SparsePolynomial::IsLess(const SparsePolynomial& spol) const {
+  bool less = false;
+  double eps = EPS;
+  // poner el código aquí
+  int Tam_vec = 0;
+  if (get_nz() - spol.get_nz() < 0){
+    Tam_vec = get_nz();
+  }else{
+    Tam_vec = spol.get_nz();
+  }
+  if (get_nz() < spol.get_nz()) { less = true; }
+  if (get_nz() > spol.get_nz()) { less = false; }
+  return less;
+}
+
+// Imprimir el polinomio al reves
+void SparsePolynomial::Inverse() const {
+  // poner el código aquí
+  std::cout << get_n() << "(" << get_nz() << "): [ ";
+  for (int i{get_nz()-1}; i >= 0; i--){
+    if(i == 0){ std::cout << at(i).get_val() << " ]"; break;}
+    std::cout << at(i).get_val() << "x^" << at(i).get_inx() << " + ";
+  }
+  std::cout << std::endl;
+}
+
+// Dado el Polinomio, suma los indices pares y resta los impares
+double SparsePolynomial::Eval4(const double x) const {
+  double result{0.0};
+  for (int i{0}; i < get_nz(); i++){
+    if (i % 2 == 0){
+      result += at(i).get_val() * pow(x, at(i).get_inx());
+    }else{
+      result -= at(i).get_val() * pow(x, at(i).get_inx());
+    }
+  }
+  return result;
 }
 
 

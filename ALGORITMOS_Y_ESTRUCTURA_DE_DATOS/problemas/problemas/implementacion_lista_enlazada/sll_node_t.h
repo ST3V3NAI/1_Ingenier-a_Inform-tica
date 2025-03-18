@@ -11,6 +11,7 @@
 #define SLL_NODET_H_
 
 #include <iostream>
+#include "sll_t.h"
 
 // Clase para nodos de listas enlazadas
 template <class T> class sll_node_t {
@@ -30,7 +31,7 @@ template <class T> class sll_node_t {
   void set_data(const T& data) { data_ = data; }
 
   // E/S
-  std::ostream& write(std::ostream& = std::cout) const;
+  std::ostream& write(std::ostream& = std::cout) const; 
 
  private:
   T data_;
@@ -42,6 +43,33 @@ template <class T> class sll_node_t {
 template <class T> std::ostream& sll_node_t<T>::write(std::ostream& os) const  {
   os << data_;
   return os;
+}
+
+template <class T> T sll_t<T>::remove_last(void) {
+  assert(!empty());
+  sll_node_t<T>* aux = get_head();
+  sll_node_t<T>* prev = NULL;
+  while(aux->get_next() != NULL) {
+    // Recorrer hasta que aux apunte a último
+      prev = aux;
+      aux = aux->get_next();
+  }
+}
+
+template <class T> void sll_t<T>::swap12(void) {
+  assert(!empty());
+  sll_node<T>* aux = get_head(); 
+  assert(get_head()->get_next() != NULL);
+
+  push_front(erase_after(get_head()));
+}
+
+template <class T> void sll_t<T> ::duplicate(void) {
+  sll_node<T>* aux = get_head();
+  while(aux != NULL) {
+    insert_after(aux, new sll_node_t<T>(aux -> get_data()));
+    aux = aux->get_next()->get_next(); // Adelantar aux dos nodos
+  }
 }
 
 #endif  // SLL_NODET_H_

@@ -37,14 +37,16 @@ template <class T> class sll_t {
   sll_node_t<T>* erase_after(sll_node_t<T>*);
 
   sll_node_t<T>* search(const T&) const;
+  void swap12(void);
+  void duplicate(void);
 
   // E/S
   std::ostream& write(std::ostream& = std::cout) const;
 
  private:
   sll_node_t<T>* head_;
+  T remove_last(void);
 };
-
 
 // destructor
 template <class T> sll_t<T>::~sll_t(void) {

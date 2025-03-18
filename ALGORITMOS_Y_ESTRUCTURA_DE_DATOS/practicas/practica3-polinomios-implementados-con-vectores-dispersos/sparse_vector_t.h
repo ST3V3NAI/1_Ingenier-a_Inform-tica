@@ -19,8 +19,8 @@
 
 #define EPS 1.0e-6
 
-typedef pair_t<double> pair_double_t;
-typedef vector_t<pair_double_t> pair_vector_t;
+typedef pair_t<double> pair_double_t; // typedef para simplificar el código
+typedef vector_t<pair_double_t> pair_vector_t; // typedef para simplificar el código
 
 class sparse_vector_t {
  public:
@@ -50,6 +50,23 @@ class sparse_vector_t {
 
   // E/S
   void write(std::ostream& = std::cout) const;
+
+    // Modification
+    void Modificacion(const int numero);
+    // Funcion para mostrar los valores a partir de un indice
+    void MostrarValores(const int numero);
+    void MostrarValores2(const int numero);
+    // Resultado de la suma de los coeficientes de un polinomio a partir de un indice dado
+    double SumaCoeficientes(const int numero);
+    // Muestra los indices del vector
+    void MostrarIndices();
+    // Mostrar el valor mayor de un vector y su indice
+    void Mayor();
+    // Mostrar el valor menor de un vector y su indice
+    void Menor();
+
+    double MediaMayoresQue(double sp) const;
+  
 
  private:
   pair_vector_t pv_;  // valores + índices
@@ -151,6 +168,109 @@ void sparse_vector_t::write(std::ostream& os) const {
 std::ostream& operator<<(std::ostream& os, const sparse_vector_t& sv) {
   sv.write(os);
   return os;
+}
+
+// Modificación
+void sparse_vector_t::Modificacion(const int numero) {
+  for (int i = 0; i < get_nz(); i++){
+    int contador=0;
+    
+    if(numero == pv_[i].get_inx()){
+    std::cout<< pv_[i].get_val()<< " x^" << pv_[i].get_inx()<<std::endl;
+    }
+  }  
+
+  bool haynumero = false;
+  for (int j = 0; j < get_nz(); j++) {
+    if (numero != pv_[j].get_inx()) {
+      haynumero = true;
+    } else{
+      haynumero = false;
+      break;
+    }
+  }if(haynumero){
+  std::cout << 0 << std::endl;
+  }
+}
+
+// Funcion para mostrar los valores a partir de un indice
+void sparse_vector_t::MostrarValores(const int numero) {
+  assert(numero >= 0 && numero < get_n());
+  std::cout << get_n() << "(" << get_nz() << ") = " << "[ ";
+  for (int i = numero; i < get_nz(); i++) {
+    std::cout << pv_[i].get_val() << " x^" << pv_[i].get_inx();
+    if (i != get_nz() - 1) {
+      std::cout << " + ";
+    }
+  }
+  std::cout << " ]" << std::endl;
+}
+
+// Funcion para mostrar los valores a partir de un indice solo los de indice par o impar dependiendo del numero que le pasemos
+void sparse_vector_t::MostrarValores2(const int numero) {
+  assert(numero >= 0 && numero < get_n());
+  std::cout << get_n() << "(" << get_nz() << ") = " << "[ ";
+  for (int i = numero; i < get_nz(); i += 2) {
+      std::cout << pv_[i].get_val() << " x^" << pv_[i].get_inx();
+      if (numero%2 == 0){
+        if (i != get_nz() - 1) {std::cout << " + ";}
+      }
+      else{
+        if (i != get_nz() - 2) {std::cout << " + ";}
+      }
+    }
+  std::cout << " ]" << std::endl;
+}
+
+// Muestra los indices del vector
+void sparse_vector_t::MostrarIndices() {
+  std::cout << get_n() << "(" << get_nz() << ") = " << "[ ";
+  for (int i = 0; i < get_nz(); i++) {
+    std::cout << pv_[i].get_inx();
+    if (i != get_nz() - 1) {
+      std::cout << " , ";
+    }
+  }
+  std::cout << " ]" << std::endl;
+}
+
+// Mostrar el valor mayor de un vector y su indice
+void sparse_vector_t::Mayor() {
+  double mayor = pv_[0].get_val();
+  int indice = 0;
+  for (int i = 0; i < get_nz(); i++) {
+    if (pv_[i].get_val() > mayor) {
+      mayor = pv_[i].get_val();
+      indice = pv_[i].get_inx();
+    }
+  }
+  std::cout << "El mayor es: " << mayor << " y su pocicion es: " << indice << std::endl;
+}
+
+// Mostrar el valor menor de un vector y su indice
+void sparse_vector_t::Menor() {
+  double menor = pv_[0].get_val();
+  int indice = 0;
+  for (int i = 0; i < get_nz(); i++) {
+    if (pv_[i].get_val() < menor) {
+      menor = pv_[i].get_val();
+      indice = pv_[i].get_inx();
+    }
+  }
+  std::cout << "El menor es: " << menor << " y su pocicion es: " << indice << std::endl;
+}
+
+double sparse_vector_t::MediaMayoresQue(double sp) const {
+  double suma{0.0};
+  int contador{0};
+
+  for(int i = 0; i < nz_; i++) {
+    if(pv_[i].get_val() > sp) {
+      suma += pv_[i].get_val();
+      contador++;
+    }
+  }
+  return (contador > 0) ? (suma / contador) : 0.0; 
 }
 
 #endif  // SPARSE_VECTORT_H_

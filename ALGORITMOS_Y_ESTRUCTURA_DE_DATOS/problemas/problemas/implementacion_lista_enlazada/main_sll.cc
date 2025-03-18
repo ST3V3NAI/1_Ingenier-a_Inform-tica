@@ -71,5 +71,17 @@ int main(void)
   lista.write(cout);
   cout << endl;	
 
+  // Intercambio del primero con el segundo
+  lista.swap12();
+  cout<< "Se ha intercambiado primero ysegundo de la lista" << endl;
+  lista.write(cout);
+  cout << endl; 
+
+  lista.duplicate();
+
+  cout << "Se han dublciado los elementos de la lista" << endl; 
+  lista.write(cout);
+  cout << endl;
+
   return 0;
 }
