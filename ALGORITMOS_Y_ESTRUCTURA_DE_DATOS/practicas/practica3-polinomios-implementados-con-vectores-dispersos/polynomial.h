@@ -288,6 +288,7 @@ double SparsePolynomial::Eval2(const int inx, const double x) const {
   }
   return result;
 }
+
 double SparsePolynomial::Eval3(const int inx, const double x) const {
   assert(inx >= 0 && inx < get_nz());
   double result{0.0};
