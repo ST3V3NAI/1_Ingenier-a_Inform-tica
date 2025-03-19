@@ -186,8 +186,9 @@ int main() {
   //double resultado = sp1.MediaMayoresQue(1.5);
   //std::cout << "La media de los valores mayores que 1.5 es: " << resultado << std::endl;
 
-   std::cout << "La suma de los indices pares de " << sp1 << "es: " << sp1.SumaDeIndicesPar(); 
-
+   // std::cout << "La suma de los indices pares de " << sp1 << "es: " << sp1.SumaDeIndicesPar() << std::endl;
+   // std::cout << "La suma de los indices pares de " << sp2 << "es: " << sp2.SumaDeIndicesPar() << std::endl;
+   // std::cout << "La suma de los indices pares de " << sp3 << "es: " << sp3.SumaDeIndicesPar() << std::endl;
 
   return 0;
 }
