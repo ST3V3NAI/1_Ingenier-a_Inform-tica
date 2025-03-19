@@ -66,6 +66,7 @@ class sparse_vector_t {
     void Menor();
 
     double MediaMayoresQue(double sp) const;
+    int SumaDeIndicesPar() const; 
   
 
  private:
@@ -273,4 +274,14 @@ double sparse_vector_t::MediaMayoresQue(double sp) const {
   return (contador > 0) ? (suma / contador) : 0.0; 
 }
 
-#endif  // SPARSE_VECTORT_H_
+int sparse_vector_t::SumaDeIndicesPar() const {
+  int suma = 0;
+  for(int i = 0; i < get_nz(); i++) {
+    if(at(i).get_inx() % 2 == 0)  {
+      suma += at(i).get_inx();
+    }
+  }
+  return suma; 
+}
+
+#endif  // SPARSE_VECTOR_T_H_

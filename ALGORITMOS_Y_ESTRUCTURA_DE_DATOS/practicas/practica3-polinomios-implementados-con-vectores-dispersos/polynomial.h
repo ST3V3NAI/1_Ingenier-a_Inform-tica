@@ -125,7 +125,7 @@ bool Polynomial::IsEqual(const Polynomial& pol, const double eps) const {
   
   // Recorremos el vector principal
   for(int i = 0; i < get_size(); i++) {
-    if(fabs(get_val(i) - pol.get_val(i)) > eps) { // Comprobamos que los vectores sean igual
+    if(fabs(get_val(i) - pol.get_val(i)) > eps) { // Comprobamos que los vectores sean iguales
       return differents; 
     }
   }
@@ -165,8 +165,8 @@ std::ostream& operator<<(std::ostream& os, const SparsePolynomial& p) {
 double SparsePolynomial::Eval(const double x) const {
   double result{0.0};
   for (int i = 0; i < get_nz(); i++) { // recorremos el vector
-    pair_t<double> sp_value = at(i); // optenemos la posición i no nula (Contiene el getval y el getinx)
-    result += sp_value.get_val() * pow(x, sp_value. get_inx()); //sumamos al resultado la multiplicacion del Val por x elevado a indice
+    pair_t<double> sp_value = at(i); // obtenemos la posición i no nula (Contiene el getval y el getinx)
+    result += sp_value.get_val() * pow(x, sp_value.get_inx()); //sumamos al resultado la multiplicacion del Val por x elevado a indice
   }
   return result; // devolvemos el resultado
 }
