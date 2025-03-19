@@ -79,7 +79,7 @@ class SparsePolynomial : public sparse_vector_t {
   void Inverse() const;
 
    // Mayor indice entre dos polinomios
-  void MaxVal(const SparsePolynomial& spol) const;
+  // void MaxVal(const SparsePolynomial& spol) const;
 };
 
 // E/S
