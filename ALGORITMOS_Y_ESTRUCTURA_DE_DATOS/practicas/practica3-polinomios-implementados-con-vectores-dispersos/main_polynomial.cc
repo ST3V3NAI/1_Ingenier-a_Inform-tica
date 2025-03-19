@@ -199,5 +199,9 @@ int main() {
 
     // std::cout << "Resultado: sp2 * sp1: " << sp1.dot_product(sp2);
 
+    // std::cout << sp1.SumOfEvenDegrees() << std::endl;
+    // std::cout << sp2.SumOfEvenDegrees() << std::endl;
+    // std::cout << sp3.SumOfEvenDegrees() << std::endl;
+
   return 0;
 }

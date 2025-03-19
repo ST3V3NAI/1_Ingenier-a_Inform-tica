@@ -80,6 +80,7 @@ class SparsePolynomial : public sparse_vector_t {
 
    // Mayor indice entre dos polinomios
   // void MaxVal(const SparsePolynomial& spol) const;
+  int SumOfEvenDegrees() const;
 };
 
 // E/S
@@ -350,6 +351,18 @@ double SparsePolynomial::Eval4(const double x) const {
     }
   }
   return result;
+}
+
+int SparsePolynomial::SumOfEvenDegrees() const {
+  int sum{0};
+
+  for(int i{0}; i < get_nz(); i++) {
+    int index = at(i).get_inx(); 
+    if(index % 2 == 0) {
+      sum += index;
+    }
+  }
+  return sum;
 }
 
 
