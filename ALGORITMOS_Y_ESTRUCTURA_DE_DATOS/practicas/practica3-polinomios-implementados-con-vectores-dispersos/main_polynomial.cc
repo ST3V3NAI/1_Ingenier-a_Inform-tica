@@ -186,9 +186,18 @@ int main() {
   //double resultado = sp1.MediaMayoresQue(1.5);
   //std::cout << "La media de los valores mayores que 1.5 es: " << resultado << std::endl;
 
-    std::cout << "La suma de los indices pares de " << sp1 << "es: " << sp1.SumaDeIndicesPar() << std::endl;
-    std::cout << "La suma de los indices pares de " << sp2 << "es: " << sp2.SumaDeIndicesPar() << std::endl;
-    std::cout << "La suma de los indices pares de " << sp3 << "es: " << sp3.SumaDeIndicesPar() << std::endl;
+  //  std::cout << "La suma de los indices pares de " << sp1 << "es: " << sp1.SumaDeIndicesPares() << std::endl;
+  //  std::cout << "La suma de los indices pares de " << sp2 << "es: " << sp2.SumaDeIndicesPares() << std::endl;
+  //  std::cout << "La suma de los indices pares de " << sp3 << "es: " << sp3.SumaDeIndicesPares() << std::endl;
+
+    //std::cout << "El indice 5 de " << sp1 << std::endl;
+    //if(sp1.Exists(5) == false) {
+    //  std::cout << "no ha sido encontrado" << std::endl;
+    //} else {
+    //  std::cout << "ha sido encontrado " << std::endl; 
+    // }
+
+    // std::cout << "Resultado: sp2 * sp1: " << sp1.dot_product(sp2);
 
   return 0;
 }

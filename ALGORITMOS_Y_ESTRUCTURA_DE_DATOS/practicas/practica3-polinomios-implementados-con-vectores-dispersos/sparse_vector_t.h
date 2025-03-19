@@ -65,8 +65,12 @@ class sparse_vector_t {
     // Mostrar el valor menor de un vector y su indice
     void Menor();
 
+    // bool Exists(const int index) const; 
+
+    // double dot_product(const sparse_vector_t& other) const; 
+
     double MediaMayoresQue(double sp) const;
-    int SumaDeIndicesPar() const; 
+    int SumaDeIndicesPares() const; 
   
 
  private:
@@ -274,7 +278,7 @@ double sparse_vector_t::MediaMayoresQue(double sp) const {
   return (contador > 0) ? (suma / contador) : 0.0; 
 }
 
-int sparse_vector_t::SumaDeIndicesPar() const {
+int sparse_vector_t::SumaDeIndicesPares() const {
   int suma = 0;
   for(int i = 0; i < get_nz(); i++) {
     if(at(i).get_inx() % 2 == 0)  {
@@ -283,5 +287,42 @@ int sparse_vector_t::SumaDeIndicesPar() const {
   }
   return suma; 
 }
+
+//bool sparse_vector_t::Exists(const int index) const {
+//  bool encontrado = false; 
+
+//  for(int i = 0; i < get_nz(); i++) {
+//    if(at(i).get_inx() == index) {
+//      encontrado = true; 
+//    }
+//  }
+
+//  return encontrado; 
+// }
+
+//double sparse_vector_t::dot_product(const sparse_vector_t& other) const {
+//  double dot_product{0.0};
+//  int i = 0, j = 0;
+
+//    while (i < get_nz() && j < other.get_nz()) {
+//      int index1 = pv_[i].get_inx();
+//      int index2 = other.pv_[j].get_inx();
+  
+//      if (index1 == index2) {
+//        dot_product += pv_[i].get_val() * other.pv_[j].get_val();
+//        i++; 
+//        j++; // Avanzan ambos, ya que se usaron los valores
+//      } 
+//      else if (index1 < index2) {
+//        i++; // Avanza solo `i`
+//      } 
+//      else {
+//        j++; // Avanza solo `j`
+//      }
+//    }
+  
+//    return dot_product;
+//  }
+  
 
 #endif  // SPARSE_VECTOR_T_H_
