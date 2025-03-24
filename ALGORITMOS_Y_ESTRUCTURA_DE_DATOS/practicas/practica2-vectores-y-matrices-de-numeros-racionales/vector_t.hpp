@@ -176,7 +176,6 @@ template<class T>
 bool vector_t<T>::EsCapicua(const std::vector<int>& vec) const {
   for(size_t i{0}; i < (sz_ / 2); i++) {
     if(at(i) != at(sz_ - (i + 1))) {
-      cout << at(i + 1) << " " << at(sz_ - (i + 1)) << endl;
       return false;
     }
   }

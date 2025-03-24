@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/usuario/1_Ingenier-a_Inform-tica/ALGORITMOS_Y_ESTRUCTURA_DE_DATOS/practicas/practica1-clase-numero-racional",
-      "program": "/home/usuario/1_Ingenier-a_Inform-tica/ALGORITMOS_Y_ESTRUCTURA_DE_DATOS/practicas/practica1-clase-numero-racional/build/Debug/outDebug",
+      "cwd": "/home/usuario/1_Ingenier-a_Inform-tica/ALGORITMOS_Y_ESTRUCTURA_DE_DATOS/problemas/problemas/implementacion_lista_doblemente_enlazada",
+      "program": "/home/usuario/1_Ingenier-a_Inform-tica/ALGORITMOS_Y_ESTRUCTURA_DE_DATOS/problemas/problemas/implementacion_lista_doblemente_enlazada/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
