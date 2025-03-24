@@ -8,10 +8,7 @@
 
 # const int MAXELTOS = 100;
 MAXELTOS=100 # numero maximo de elemenos
-nFil=0 # desplazamiento al campo filas
-nCol=4 # desplazamiento al campo columnas
 datos=8 # desplazamiento datos matriz
-sizeF=4 # numero de bytes que ocupa un flotante
 
 # typedef struct {
 #   int nFil;
@@ -26,12 +23,9 @@ opc_0 = 0
 opc_1 = 1
 opc_2 = 2
 opc_3 = 3
-opc_4 = 4
-opc_5 = 5
-opc_6 = 6
 opc_7 = 7
 
-sizeF = 4	# Numero de bytes de un float
+sizeF = 4	# numero de bytes que ocupa un flotante
 LF = 10
 space = 32
 x = 120
@@ -163,11 +157,17 @@ erropc: .asciiz "Error: opcion incorrecta\n"
 finstr: .asciiz "\nTermina el programa\n"
       .text
       # TABLA DE REGISTROS: 
-
+      # $s0 -> opc
+      # $s1 -> filas
+      # $s2 -> columnas
+      # $s4 -> opcmatT
 # -------------------------------------------------------------------------------------------
+main: 
 # int main() {
 #   int numCol;
+      li $s2, 0
 #   int numFil;
+      li $s1, 0 
 #   float* datos;
 #   std::cout << std::fixed << std::setprecision(8);  // Ignorar
 impresion_de_titulo: 
@@ -175,7 +175,8 @@ impresion_de_titulo:
       li $v0, 4
       la $a0, titulo
       syscall
-#   structMat* matTrabajo = &mat1;
+
+while_true: 
 #   while(true) {
 #     numCol = matTrabajo->nCol;
 #     numFil = matTrabajo->nFil;
@@ -193,6 +194,7 @@ impresion_de_titulo:
       li $a0, 10
       li $v0, 11
       syscall
+for: 
 #     for(int f = 0; f < numFil; f++) {
 #       for(int c = 0; c < numCol; c++) {
 #         std::cout << datos[f*numCol + c] << ' ';
@@ -217,21 +219,35 @@ impresion_de_titulo:
       la $a0, menu
       syscall
 #     int opcion;
+      li $s0, 0
 #     std::cin >> opcion;
-
-
+      li $v0, 5
+      syscall
+      move $s0, $v0
 #     if(opcion == 0) {
+      beq $s0, opc_0, termina_programa
 #       break;
 #     }
 
 #     // Opción 1 ////////////////////////////////////////////////////////////
 #     if(opcion == 1) {
+      beq $s0, opc_1, cambiar_matriz
+      j op_2
+
+
+cambiar_matriz:
 #       std::cout << "\nElije la matriz de trabajo (1..7): ";
       li $v0, 4
       la $a0, petmat
       syscall
 #       int matT;
+      li $s4, 0
 #       std::cin >> matT;
+      li $v0, 5
+      syscall
+      move $s4, $v0
+
+switch_case: 
 #       switch(matT) {
 #         case 1:
 #           matTrabajo = &mat1;
@@ -254,18 +270,27 @@ impresion_de_titulo:
 #         case 7:
 #           matTrabajo = &mat7;
 #           break;
+
+default_case: 
 #         default:
 #           std::cout << "Numero de matriz de trabajo incorrecto\n";    
       li $v0, 4
       la $a0, errmat
       syscall
 #           continue;  // volvemos al principio del bucle
+      j cambiar_matriz
 #       }
 #       continue;
 #     }
 
+op_2: 
 #     // Opción 2: Definir matriz 7 //////////////////////////////////////////
 #     if (opcion == 2) {
+      beq $s0, opc_2, definir_matriz_7
+      j op_3
+
+
+definir_matriz_7: 
 #       int nFil;
 #       int nCol; // numero de columnas
 #       std::cout << "Introduce el numero de filas: ";
@@ -326,8 +351,13 @@ impresion_de_titulo:
 #       continue;
 #     }
 
+op_3: 
 #     // Opción 3  //////////////////////////////////////////////////////////
 #     if(opcion == 3) {
+      beq $s0, opc_3, cambiar_un_valor_de_la_matriz
+      j op_7
+
+cambiar_un_valor_de_la_matriz: 
 #       std::cout << "\nIndice de fila: ";
       li $v0, 4
       la $a0, petfil
@@ -364,8 +394,13 @@ impresion_de_titulo:
 #       continue;
 #     }
 
+op_7: 
 #     // Opción 7 ////////////////////////////////////////////////////////////
 #     if(opcion == 7) {
+      beq $s0, opc_7, encontrar_minimo
+      j op_incorrecta
+
+encontrar_minimo: 
 #       std::cout << "Introduce el umbral: ";
       li $v0, 4
       la $a0, petum
@@ -388,12 +423,16 @@ impresion_de_titulo:
 #       continue;
 #     }
 
+op_incorrecta: 
 #     // Opción Incorrecta ///////////////////////////////////////////////////
 #     std::cout << "Error: opcion incorrecta\n";
       li $v0, 4
       la $a0, erropc
       syscall
+
+      j while_true
 #   }
+termina_programa: 
 #   std::cout << "\nTermina el programa\n";
       li $v0, 4
       la $a0, finstr
