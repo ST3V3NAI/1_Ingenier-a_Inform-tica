@@ -83,5 +83,19 @@ int main(void)
   lista.write(cout);
   cout << endl;
 
+  lista.duplicate_elements();
+  cout << "Se ha duplicado los elementos de la lista" << endl; 
+  lista.write(cout);
+  cout << endl; 
+
+  lista.deleting_even_pos_elements();
+  cout << "Se han eliminado los elementos pares de la lista" << endl;
+  lista.write(cout);
+  cout << endl;
+
+
+  lista.deleting_odd_pos_elements();
+  cout << "Se han eliminado y transladado los nodos impares" << std::endl;
+  lista.write(cout);
   return 0;
 }

@@ -72,17 +72,5 @@ template <class T> void sll_t<T> ::duplicate(void) {
   }
 }
 
-template <class T> void sll_t<T>::insert_node_after_other(sll_node_t<T>* ref_node, sll_node_t<T>* aux) {
-  aux = get_head(); 
-  sll_node_t<T>* new_node; 
-  if(empty()) {
-    std::cout << "No se puede hacer con listas vacías" << std::endl;
-  } else {
-    set_next(new_node(ref_node));
-    set_next(new_node(aux)); 
-    set_next(ref_node(new_node));
-    set_next(aux(new_node)); 
-  }
-}
 
 #endif  // SLL_NODET_H_

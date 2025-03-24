@@ -41,6 +41,9 @@ template <class T> class sll_t {
   void duplicate(void);
   void insert_node_after_other(sll_node_t<T>* ref_node, sll_node_t<T>* aux); 
   void swap_last_and_second_last(void);
+  void duplicate_elements(void); 
+  void deleting_odd_pos_elements(void);
+  void deleting_even_pos_elements(void);
 
   // E/S
   std::ostream& write(std::ostream& = std::cout) const;
@@ -126,5 +129,42 @@ void sll_t<T>::swap_last_and_second_last(void) {
   assert(head->get_next() != NULL && tail->get_next() == NULL)
   push_back(erase(get_tail()->get_prev())); 
 }
+
+template <class T>
+void sll_t<T>::duplicate_elements(void) {
+  sll_node_t<T>* aux = get_head();
+  while(aux != NULL) {
+    insert_after(aux, new sll_node_t<T>(aux -> get_data()));
+    aux = aux->get_next() -> get_next(); // Adelantar aux dos nodos
+  }
+}
+
+
+
+template <class T>
+void sll_t<T>::deleting_odd_pos_elements(void) {
+  sll_node_t<T>* aux = get_head();
+  while (aux != NULL && aux->get_next() != NULL) {
+    delete erase_after(aux); // Borrar el siguiente a aux y liberarlo 
+    aux = aux->get_next(); // Solo adelantar aux un nodo, par ya borrado
+  }
+}
+
+template <class T>
+void sll_t<T>::deleting_even_pos_elements(void) {
+  sll_t<T> odds_list;
+  sll_node_t<T>* aux = get_head();
+  if(!empty()) {
+    odds_list.push_front(pop_front());
+    aux = get_head();
+  }
+  while(aux != NULL && aux->get_next() != NULL) 
+  {
+    odds_list.pop_front(erase_after(aux));
+    aux = aux->get_next(); // Solo adelantar aux un nodo, impar ya movido
+  }
+  return odds_list; // Retorna lista de impares
+}
+
 
 #endif  // SLLT_H_
