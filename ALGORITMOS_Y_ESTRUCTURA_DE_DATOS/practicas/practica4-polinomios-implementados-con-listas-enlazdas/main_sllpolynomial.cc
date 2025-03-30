@@ -77,5 +77,54 @@ int main()
   sllp2.Sum(sllp3, sllpsum23);
   cout << "sllp2 + sllp3= " << sllpsum23;
 
+  //MODIFICIACION
+  cout << endl;
+  cout << "------------Posibles Modificaciones-------------" << endl;
+  cout << " producto escalar : ";
+  SllPolynomial sllpscalar; // creamos el polinomio que se va a modificar
+  double scalar = 5; // el escalar por el que se va a multiplicar
+  sllp1.Scalar(sllpscalar, scalar); // esta funcion , aunq es viod modifica directamente a sllpscalar
+  cout << "Scalar(5) * P1(x) = " << sllpscalar;
+
+  cout << " Eliminar primero y el ultimo : ";
+
+    // Obtenemos el polinomio sin el primer y último nodo
+    SllPolynomial mod = removeFirstAndLastNodes(sllp1);
+
+    // Imprimimos el polinomio resultante
+    std::cout << "Polinomio sin el primer y último nodo: ";
+    mod.Write(std::cout);
+
+
+     sllp1.SumarCoeficientesContinuos(sllp1);
+
+
+     // eliminar los grados pares del polinomio
+     sllp1.EliminarImpares();
+
+      // imprimir el polinomio con los grados pares eliminados
+     std::cout << " Polinomio sin grados pares: ";
+     sllp1.Write(std::cout);
+
+     SllPolynomial sllpmod; // creamos el polinomio que se va a modificar
+
+    cout << "\n\n ---------------------Crear un polinomio solo con los pares : " << endl;
+
+    // Obtenemos el polinomio sin el primer y último nodo
+    SllPolynomial mod1 = EliminarlosImpares(sllp1);  // los hago con sllp1 y 3
+     SllPolynomial mod2 = EliminarlosImpares(sllp3);
+    // Imprimimos el polinomio resultante
+    std::cout << "Polinomio Sllp1 solo con los pares es: ";
+    mod1.Write(std::cout);
+    std::cout << "Polinomio Sllp3 solo con los pares es: ";
+    mod2.Write(std::cout);
+
+    cout << "Evalueacion en los indices paras con sllp1(" << x1 << ")= " << sllp1.EvalPar(x1) << endl;
+
+    // Ordena el polinomio de mayor a menor segun su coeficiente
+    SllPolynomial sllp1_ordenado;
+    sllp1.OrdenarPoly(sllp1_ordenado);
+    cout << "sllp1 ordenado= " << sllp1_ordenado;
+
   return 0;
 }
