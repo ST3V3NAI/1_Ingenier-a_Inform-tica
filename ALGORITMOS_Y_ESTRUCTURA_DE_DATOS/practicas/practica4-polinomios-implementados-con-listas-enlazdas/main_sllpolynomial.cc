@@ -138,5 +138,7 @@ int main()
      sllp1.clean(5.0);
      sllp1.Write(std::cout);
 
+     sllp1.MaxEvenCoef(); 
+
   return 0;
 }
