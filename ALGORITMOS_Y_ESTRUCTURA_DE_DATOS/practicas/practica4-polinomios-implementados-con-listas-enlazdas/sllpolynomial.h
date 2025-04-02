@@ -53,6 +53,7 @@ class SllPolynomial : public sll_t<pair_double_t> { // heeredera de sll_t y de p
 //  int EvalPar(const double num);
 //  void EliminarUnMonomioConcretoARaizDeSuIndice(int n); 
 //  void Impar(SllPolynomial& modi);
+  void clean(const double Ib);
 };
 
 // Función que comprueba que no sea 0 o si lo es
@@ -176,6 +177,27 @@ void SllPolynomial::Sum(const SllPolynomial& sllpol, SllPolynomial& sllpolsum, c
   // Transferimos los nodos del polinomio auxiliar al resultado final
   while (!auxSllPolSum.empty()) {
       sllpolsum.push_front(auxSllPolSum.pop_front());
+  }
+}
+
+void SllPolynomial::clean(const double Ib) {
+  std::cout << "Eliminando términos menores que el umbral: " << Ib << std::endl;
+  // Caso especial: Si el primer nodo tiene el índice a eliminar
+  while (get_head() != NULL && get_head()->get_data().get_val() < Ib) {
+      pop_front(); // Eliminamos el primer nodo si es necesario
+  }
+
+  if(get_head() == NULL) return; 
+
+  SllPolyNode* aux = get_head(); // Apuntador al inicio de la lista
+  
+// Recorremos la lista buscando el nodo a eliminar
+  while (aux != NULL && aux->get_next() != NULL) {  
+    if (aux->get_next()->get_data().get_val() < Ib) {  
+      erase_after(aux); // Eliminamos el siguiente nodo
+    } else {  
+      aux = aux->get_next(); // Avanzamos solo si no eliminamos, para evitar saltos
+    }
   }
 }
 

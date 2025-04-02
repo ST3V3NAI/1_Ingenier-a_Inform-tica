@@ -133,5 +133,10 @@ int main()
 //    SllPolynomial sllimpar;
 //    sllp1.Impar(sllimpar);
 //    sllimpar.Write(std::cout);
+
+// Modi hoy
+     sllp1.clean(5.0);
+     sllp1.Write(std::cout);
+
   return 0;
 }
