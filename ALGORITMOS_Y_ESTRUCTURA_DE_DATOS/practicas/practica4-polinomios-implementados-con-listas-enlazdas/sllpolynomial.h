@@ -170,16 +170,25 @@ void SllPolynomial::Sum(const SllPolynomial& sllpol, SllPolynomial& sllpolsum, c
 
 
 // Intercambiar el segundo nodo con el tercero
-  void SllPolynomial::IntercambiaSegundoConTercero() {  
-    SllPolyNode* primero = get_head();
-    SllPolyNode* segundo = primero->get_next();
-    SllPolyNode* tercero = segundo->get_next();
-    SllPolyNode* cuarto = tercero->get_next(); 
+//  void SllPolynomial::IntercambiaSegundoConTercero() {  
+//    SllPolyNode* primero = get_head();
+//    SllPolyNode* segundo = primero->get_next();
+//    SllPolyNode* tercero = segundo->get_next();
+//    SllPolyNode* cuarto = tercero->get_next(); 
 
-    primero->set_next(tercero);
-    tercero->set_next(segundo);
-    segundo->set_next(cuarto);
+//    primero->set_next(tercero);
+//    tercero->set_next(segundo);
+//    segundo->set_next(cuarto);
+//}
+
+void SllPolynomial::IntercambiaSegundoConTercero() {
+  SllPolyNode* aux{get_head()};
+  SllPolyNode* aux1{aux->get_next()};
+  SllPolyNode* aux2{aux1->get_next()}; 
+
+  aux->set_next(aux2);
+  aux2->set_next(aux2->get_next()); 
+  aux1->set_next(aux1);
 }
-  
 
 #endif  
