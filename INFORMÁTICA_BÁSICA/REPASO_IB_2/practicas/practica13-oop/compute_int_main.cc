@@ -13,17 +13,19 @@
 
 #include "compute_int.h"
 
-int main(int argc, char* argv[]) {
-  Usage(argc, argv);
+int main() {
+  ComputeInt compute_integer(7, 10);
+  ComputeInt compute_integer_2(8, 21);
 
-  double numerator = std::atoi(argv[1]);
-  double denominator = std::atoi(argv[2]);
-
-  ComputeInt compute_integer(numerator, denominator);
-
-  double value = compute_integer.Value();
-
-  std::cout << "Factorial: " << compute_integer.Factorial() << std::endl;
+  std::cout << "Valor de " << compute_integer << " es: " << compute_integer.Value() << std::endl;
+  std::cout << "Valor de " << compute_integer_2 << " es: " << compute_integer_2.Value() << std::endl; 
+  std::cout << "Factorial de " << compute_integer << " es: " << compute_integer.Factorial() << std::endl;
+  std::cout << "Factorial de " << compute_integer_2 << " es: " << compute_integer_2.Factorial() << std::endl;
+  std::cout << "La suma de la serie de " << compute_integer << " es: " << compute_integer.SumSerie() << std::endl;
+  std::cout << "La suma de la serie de " << compute_integer_2 << " es: " << compute_integer_2.SumSerie() << std::endl;
+  compute_integer.IsPrime();
+  compute_integer_2.IsPrime();
+  compute_integer.AreRelativesPrimes(compute_integer_2);
 
   return 0; 
 }

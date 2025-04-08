@@ -16,6 +16,7 @@
 
 #include <iostream> // Para flujos de entrada y salida
 #include <cmath> // Para calculos matemáticos complicados
+#include <numeric> // Para std::gcd
 
 void Usage(int argc, char* argv[]); // Función que controla el correcto uso de los parametros de entrada del programa
 
@@ -34,12 +35,12 @@ class ComputeInt {
     double getNumerator() const; 
 
     // Métodos de la clase
-    double Value() const ;
+    double Value() const;
     double Factorial() const;
-    double SumSerie(double number);
-    bool IsPrime(double number);
-    bool IsPerfectPrime(double number);
-    bool AreRelativesPrimes(double number);
+    double SumSerie() const;
+    bool IsPrimeNumber(int number);
+    void IsPrime();
+    void AreRelativesPrimes(ComputeInt other);
 
 
     // Sobrecarga del operador de inserción y extraccion
