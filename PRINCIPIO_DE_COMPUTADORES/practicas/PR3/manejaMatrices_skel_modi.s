@@ -38,7 +38,14 @@ opc_8 = 8
 opc_9 = 9
 opc_10 = 10
 opc_11 = 11
-
+opc_12 = 12
+opc_13 = 13
+opc_14 = 14
+opc_15 = 15
+opc_16 = 16
+opc_17 = 17
+opc_18 = 18
+opc_19 = 19
 	.data
 #structMat mat1 {
 #  6,
@@ -156,7 +163,15 @@ menu:   .ascii "(0) Terminar el programa\n"
         .ascii "(8) Multplicar por un escalar\n"
         .ascii "(9) Cambiar filas de una matriz\n"
         .ascii "(10) Cambiar toda una columna de una matriz\n"
-        .ascii "(11) Immprimir elementos de la diagonal principal\n"
+        .ascii "(11) Imprimir elementos de la diagonal principal\n"
+        .ascii "(12) Suma de elementos de una columna\n"
+        .ascii "(13) Intercambiar primer elemento con el último si son se signos opuestos\n"
+        .ascii "(14) Recorrer diagonal principal, imprimir valores > umbral y guardarlos cambiados de signo\n"
+        .ascii "(15) Sumar elementos opuestos en una columna y guardar el resultado en la fila superior\n"
+        .ascii "(16) Comparar dos columnas y si el valor de la primera es mayor, intercambiarlo con el de la segunda\n"
+        .ascii "(17) Buscar el máximo en una columna e imprimirlo, indicando en qué fila está \n"
+        .ascii "(18) Solicitado el índice de una columna, duplica los elementos positivos y resta 1 a los negativos."
+        .ascii "(19) Invertir los elementos de una columna\n"
         .asciiz "\nIntroduce opción elegida: ";
 petmat: .asciiz "\nElije la matriz de trabajo (1..7): "
 errmat: .asciiz "Numero de matriz de trabajo incorrecto\n"
@@ -196,6 +211,54 @@ pidecol3: .asciiz "): "
 col_act: .asciiz "Las columnas se actulizaron :\n"
 imp_dia_elems: .asciiz "Los elementos de la diagonal principal son: "
 strmatriznocuadrada: .asciiz "La matriz no es cuadrada, cambie de matriz "
+strpideindicecol: .asciiz "Digame el indice de la columna: "
+error_indice_incorr: .asciiz "Indice incorrecto de columna, pruebe de nuevo "
+lasumaes: .asciiz "La suma de las columnas es: "
+error_not_cuadrada: .asciiz "\nLa matriz elegida no es cuadrada, cambie de matriz para ejecutar la opc_12"
+pide_ind_col: .asciiz "Indice de columna: "
+error_dif: .asciiz "Error: dimensión incorrecta. Número de columna incorrecto\n"
+no_intercambio: .asciiz "NO intercambio en fila "
+termina_9: .asciiz "\nTermina opcion 9\n"
+intercambio: .asciiz "Intercambio "
+fila: .asciiz" de fila "
+con: .asciiz" con "
+salto: .asciiz "\n"
+matriz_no_es_cuadrada: .asciiz "La matriz no es cuadrada, no tiene diagonal principal\n"
+introduce_umbral: .asciiz "Introduce el umbral: "
+mayores_que_umbral: .asciiz "Elementos de la diagonal mayores que: "
+ind_col_pide: .asciiz "Indice de columna: "
+error_dim_op: .asciiz "Error: dimensión incorrecta. Número de columna incorrecto\n"
+suma_fil: .asciiz "Suma de fila "
+suma_fil_2: .asciiz " y fila "
+suma_fila_3: .asciiz " = "
+suma_fila_4: .asciiz "\n"
+termina_15: .asciiz "Termina opcion 15\n"
+termina_16: .asciiz "Termina opción 16\n"
+ingresa_col_1: .asciiz "Ingrese el índice de la primera columna: "
+msg_error_col_1: .asciiz  "Error: índice de columna inválido\n"
+ingresa_col_2: .asciiz "Ingrese el índice de la segunda columna: "
+msg_error_col_2: .asciiz "Error: índice de columna inválido o columnas iguales\n"
+inter_1: .asciiz "Intercambio fila "
+inter_2: .asciiz ": "
+inter_3: .asciiz " con "
+inter_4: .asciiz "\n"
+no_inter_1: .asciiz "No se intercambia en fila "
+no_inter_2: .asciiz "\n"
+termina_17: .asciiz "Termina opcion 17\n"
+ing_col: .asciiz "Ingrese el índice de la columna: "
+invalid_col: .asciiz "Error: índice de columna inválido\n"
+fila_max_1: .asciiz "Máximo en columna "
+fila_max_2: .asciiz ": "
+fila_max_3: .asciiz " en fila "
+fila_max_4: .asciiz "\n"
+fila_not_max_1: .asciiz "Fila "
+fila_not_max_2: .asciiz ": no contiene el máximo\n"
+pide_indcol: .asciiz "Indice de columna: "
+error_pidecol_6: .asciiz "Error: dimension incorrecta. Numero de columna incorrecto\n"
+termina_18: .asciiz "Termina opcion 18\n"
+en_fila: .asciiz "En fila "
+en_fila_2: .asciiz " es positivo "
+en_fila_3: .asciiz " es negativo "
       .text
       # TABLA DE REGISTROS:
       #$s0  -> opc       # Opción ingresada por el usuario
@@ -215,6 +278,15 @@ strmatriznocuadrada: .asciiz "La matriz no es cuadrada, cambie de matriz "
       #$f26 -> minimo    # Numero minimo de la matriz
       #$f26 -> maximo    # Numero maximo de la matriz
       #$f4 -> escalar    # Numero al que le multiplicaremos la matriz
+      #$f20 -> suma      # Suma de las columnas
+      # $s3 -> indCol    # Indice de la columa
+	  # $f20 -> suma
+	  # $f22 -> datos
+	  # $f4 -> cte{0.0}
+	  # $t5 -> mitadCol
+	  # $f26 -> aux1
+	  # $f28 -> aux2
+	  # $t6 -> (numFil - f - 1)
 # -------------------------------------------------------------------------------------------
 main:
 # int main() {
@@ -1028,11 +1100,11 @@ error_col_mod:
 
       j cambiar_columnas
 
-      li $s7, 0
 else_new_col:
+       li $s3, 0
 
 for_columna_nueva:
-      bge $s7, $s2, for_fin_columna_nueva
+      bge $s3, $s2, for_fin_columna_nueva
 
 pide_col:
       li $v0, 4
@@ -1048,7 +1120,7 @@ pide_col:
       syscall
 
       li $v0, 1
-      move $a0, $s7
+      move $a0, $s3
       syscall
 
       li $v0, 4
@@ -1060,14 +1132,14 @@ pide_col:
       mov.s $f28, $f0
 calculo_dir_col:
 #           float valor = datos[c * numCol + f];
-      mul $t0, $s3, $s7
+      mul $t0, $s3, $s2
       add $t0, $t0, $t7
       mul $t0, $t0, sizeF
       add $t0, $s6, $t0
 
       s.s $f28, 0($t0)
 
-      addi $s7, $s7, 1
+      addi $s3, $s3, 1
       j for_columna_nueva
 for_fin_columna_nueva:
       li $v0, 4
@@ -1078,7 +1150,7 @@ for_fin_columna_nueva:
 
 op_11:
       beq $s0, opc_11, if_cuadrada   # ($s0 == 11) -> if_cuadrada
-      j op_incorrecta                                 # ($s0 != 11) -> op_incorrecta
+      j op_12                                 # ($s0 != 11) -> op_12
 
 if_cuadrada:
       bne $s2, $s3, matriz_no_cuadrada
@@ -1139,6 +1211,940 @@ for_imprimir_dia_principal_fin:
 #    }
       j while_true
 
+op_12:
+    beq $s0, opc_12, if_matriz_cuadrada  # ($s0 == 12) -> if_matriz_cuadrada
+    j   op_13
+
+if_matriz_cuadrada:
+    bne $s1, $s2, not_cuadrada
+    j pide_indice_para_suma
+
+not_cuadrada:
+    li $v0, 4
+    la $a0, error_not_cuadrada
+    syscall
+
+    j while_true
+
+
+pide_indice_para_suma:
+    li $v0, 4
+    la $a0, strpideindicecol
+    syscall
+
+    li $v0, 5
+    syscall
+    move $t5, $v0
+
+if_indice_incorrecto:
+    bge $t5, $s2, error_indice_col_incorr
+    j else_indice_correcto
+
+
+error_indice_col_incorr:
+    li $v0, 4
+    la $a0, error_indice_incorr
+    j pide_indice_para_suma
+
+else_indice_correcto:
+
+     li $t3, 0
+     li.s $f20, 0.0
+for_suma_de_columnas:
+    bge $t3, $s2, imprimir_suma
+
+calculo_de_suma:
+#           float valor = datos[c * numCol + f];
+      mul $t0, $t3, $s5
+      add $t0, $t0, $t5
+      mul $t0, $t0, sizeF
+      add $t0, $t0, $s6
+
+      l.s $f24, 0($t0)
+      add.s $f20, $f20, $f24
+
+      addi $t3, $t3, 1
+      j for_suma_de_columnas
+
+imprimir_suma:
+      li $v0, 4
+      la $a0, lasumaes
+      syscall
+
+      li $v0, 2
+      mov.s $f12, $f20
+      syscall
+
+      j while_true
+
+op_13:
+    beq $s0, opc_13, ver_diferentes
+    j op_14
+
+ver_diferentes:
+
+pide_indice:
+    # // Opción 13: Intercambiar elementos opuestos en una columna si tienen signos diferentes
+# std::cout << "Indice de columna: ";
+    li $v0, 4
+    la $a0, pide_ind_col
+    syscall
+
+# int indCol;
+# std::cin >> indCol;
+    li $v0, 5
+    syscall
+    move $s7, $v0
+
+if_ver_diferentes:
+# if ((indCol < 0) || (indCol >= numCol)) {
+    bltz $s7, error_ver_diferentes
+    bge $s7, $s2, error_ver_diferentes
+    j else_ver_diferentes
+
+
+error_ver_diferentes:
+#     std::cout << "Error: dimensión incorrecta. Número de columna incorrecto\n";
+    li $v0, 4
+    la $a0, error_dif
+    syscall
+
+    j pide_indice
+#     continue;
+# }
+else_ver_diferentes:
+      li $t0, 0
+      div $t1, $s1, 2
+for_principal:
+# for (int f = 0; f < numFil / 2; f++) {
+      bge $t0, $t1, for_principal_fin
+
+operaciones:
+#     int fOpuesto = numFil - f - 1;
+      sub $t2, $s1, $t0
+      addi $t2, $t2, -1
+# valor1 = $t3
+#     float valor1 = datos[f * numCol + indCol];
+      move $t3, $t0
+      mul $t3, $t3, $s2
+      add $t3, $t3, $s7
+      mul $t3, $t3, sizeF
+      add $t3, $t3, $s6
+      l.s $f4, 0($t3)
+# valor2 = $t4
+#     float valor2 = datos[fOpuesto * numCol + indCol];
+      mul $t4, $t2, $s2
+      add $t4, $t4, $s7
+      mul $t4, $t4, sizeF
+      add $t4, $t4, $s6
+      l.s $f6, 0($t4)
+#     float producto = valor1 * valor2;
+      mul.s $f8, $f4, $f6
+
+if_producto:
+#     if (producto > 0) {
+      li.s $f10, 0.0
+      c.lt.s $f8, $f10
+      bc1t else_intercambio
+
+#         std::cout << "NO intercambio en fila " << f;
+      li $v0, 4
+      la $a0, no_intercambio
+      syscall
+      li $v0, 1
+      move $a0, $t0
+      syscall
+      j  skip_update
+#     } else {
+else_intercambio:
+#         std::cout << "Intercambio " << valor1 << " de fila " << f
+    s.s $f6, 0($t3)
+    s.s $f4, 0($t4)
+
+    li $v0, 4
+    la $a0, intercambio
+    syscall
+    li $v0, 2
+    mov.s $f12, $f4
+    syscall
+    li $v0, 4
+    la $a0, fila
+    syscall
+    li $v0, 1
+    move $a0, $t0
+    syscall
+#                   << " con " << valor2 << " de fila " << fOpuesto;
+    li $v0, 4
+    la $a0, con
+    syscall
+    li $v0, 2
+    mov.s $f12, $f6
+    syscall
+#         datos[f * numCol + indCol] = valor2;
+#         datos[fOpuesto * numCol + indCol] = valor1;
+#     }
+
+skip_update:
+#     std::cout << '\n';
+    li $v0, 4
+    la $a0, salto
+    syscall
+# }
+    addi $t0, $t0, 1
+    j for_principal
+
+for_principal_fin:
+# std::cout << "Termina opcion 9\n";
+    li $v0, 4
+    la $a0, termina_9
+    syscall
+# continue;
+    j while_true
+
+op_14:
+# TABLA DE REGISTROS :
+    # $s1 -> numFil
+    # $s2 -> numCol
+    # $f20 -> umbral
+    # $s5 -> i
+    # $f22 -> valor
+    # $f30 -> cte{-1.0}
+#// Opción 14: Recorrer diagonal principal, imprimir valores > umbral y guardarlos cambiados de signo
+#if(opcion == 14) {
+    beq $s0, opc_14, valores_mayores_que_umbral_y_signo
+    j op_15
+
+valores_mayores_que_umbral_y_signo:
+
+if_matriz_not_cuadrada:
+#    if(numFil != numCol) {
+    bne $s1, $s2, matriz_not_cuadrada
+    j else_matriz_not_cuadrada
+
+matriz_not_cuadrada:
+#        cout << "La matriz no es cuadrada, no tiene diagonal principal\n";
+    li $v0, 4
+    la $a0, matriz_no_es_cuadrada
+    syscall
+#        continue;
+    j while_true
+#    }
+
+else_matriz_not_cuadrada:
+#    cout << "Introduce el umbral: ";
+    li $v0, 4
+    la $a0, introduce_umbral
+    syscall
+#    float umbral;
+#    cin >> umbral;
+    li $v0, 6
+    syscall
+    mov.s $f20, $f0
+#    cout << "Elementos de la diagonal mayores que " << umbral << ":\n";
+    li $v0, 4
+    la $a0, mayores_que_umbral
+    syscall
+
+    li $v0, 2
+    mov.s $f12, $f20
+    syscall
+
+    li $v0, 11
+    li $a0, 10
+    syscall
+
+    li $s5, 0
+for_diagonal_umbral:
+#    for(int i = 0; i < numFil; i++) {
+    bge $s5, $s1, for_diagonal_umbral_fin
+#        float valor = datos[i * numCol + i];  // Elemento diagonal
+      mul $t0, $s5, $s2
+      add $t0, $t0, $s5
+      mul $t0, $t0, sizeF
+      add $t0, $s6, $t0
+      l.s $f22, 0($t0)
+
+if_valor_mayor_que_umbral:
+#        if(valor > umbral) {
+      c.lt.s $f22, $f20
+      bc1t skip_update_2
+#            cout << valor << " ";
+      li $v0, 2
+      mov.s $f12, $f22
+      syscall
+
+      li $v0, 11
+      li $a0, 32
+      syscall
+#            // Cambiar signo y guardar
+#            datos[i * numCol + i] = -valor;
+      li.s $f30, -1.0
+      mul.s $f22, $f30, $f22
+      s.s $f22, 0($t0)
+
+skip_update_2:
+#        }
+    addi $s5, $s5, 1
+    j for_diagonal_umbral
+#    }
+for_diagonal_umbral_fin:
+#    cout << "\n";
+    li $v0, 11
+    li $a0, 10
+    syscall
+#    continue;
+    j while_true
+#}
+
+op_15:
+# TABLA DE REGISTROS :
+    # $s1 -> numFil
+    # $s2 -> numCol
+    # $s3 -> indCol
+    # $s5 -> f
+    # $t3 -> fOpuesto
+    # $f28 -> Suma
+#// Opción 15: Sumar elementos opuestos en una columna y guardar el resultado en la fila superior
+    beq $s0, opc_15, while_true_op_elems
+    j op_16
+#int indCol;
+    li $s3, 0
+while_true_op_elems:
+#while (true) {
+#    std::cout << "Indice de columna: ";
+    li $v0, 4
+    la $a0, ind_col_pide
+    syscall
+#    std::cin >> indCol;
+    li $v0, 5
+    syscall
+    move $s3, $v0
+
+if_op_elems:
+    li $t5, 0
+#    if (indCol < 0 || indCol >= numCol) {
+    blt  $s3, $t5, error_columna_op_elems
+    bge $s3, $s2, error_columna_op_elems
+    j else_op_elems
+
+
+error_columna_op_elems:
+#        std::cout << "Error: dimensión incorrecta. Número de columna incorrecto\n";
+    li $v0, 4
+    la $a0, error_dim_op
+    syscall
+#        continue;
+    j while_true
+#    }
+
+else_op_elems:
+    li $s5, 0
+    div $t7, $s1, 2
+for_op_elems:
+#    for (int f = 0; f < numFil / 2; f++) {
+    bge $s5, $t7, for_op_elems_end
+
+    li $t3, 0
+#        int fOpuesto = numFil - f - 1;
+    sub $t3, $s1, $s5
+    addi $t3, $t3, -1
+
+    li $t1, 0
+calculo_de_valor:
+#        float valor1 = datos[f][indCol];
+      mul $t0, $s5, $s2
+      add $t0, $t0, $s3
+      mul $t0, $t0, sizeF
+      add $t0, $t0, $s6
+      l.s $f4, 0($t0)
+#        float valor2 = datos[fOpuesto][indCol];
+      mul $t1, $t3, $s2
+      add $t1, $t1, $s3
+      mul $t1, $t1, sizeF
+      add $t1, $t1, $s6
+      l.s $f6, 0($t1)
+
+suma_calculo:
+#        float suma = valor1 + valor2;
+    li.s $f28, 0.0
+    add.s $f28, $f4, $f6
+
+imp_suma:
+#        std::cout << "Suma de fila " << f << " y fila " << fOpuesto << " = " << suma << "\n";
+    li $v0, 4
+    la $a0, suma_fil
+    syscall
+
+    li $v0, 1
+    move $a0, $s5
+    syscall
+
+    li $v0, 4
+    la $a0, suma_fil_2
+    syscall
+
+    li $v0, 1
+    move $a0, $t3
+    syscall
+
+    li $v0, 4
+    la $a0, suma_fila_3
+    syscall
+
+    li $v0, 2
+    mov.s $f12, $f28
+    syscall
+
+    li $v0, 4
+    la $a0, suma_fila_4
+    syscall
+inv:
+#        datos[f][indCol] = suma;
+      s.s $f28, 0($t0)
+#    }
+    addi $s5, $s5, 1
+    j for_op_elems
+for_op_elems_end:
+
+#    std::cout << "Termina opcion 14\n";
+    li $v0, 4
+    la $a0, termina_15
+    syscall
+
+#    break;
+    j while_true
+#}
+while_true_op_elems_end:
+
+op_16:
+    # TABLA DE REGISTROS:
+        # t1 -> col1
+        # t2 -> col2
+        # $f4 -> val1
+        # $f6 -> val2
+        # $f20 -> suma
+#// Opción 15: Comparar dos columnas y si el valor de la primera es mayor, intercambiarlo con el de la segunda
+    bne $s0, opc_16, op_17
+#int col1, col2;
+    li $t1, 0
+    li $t2, 0
+while_true_2:
+#while (true) {
+first_col:
+#    std::cout << "Ingrese el índice de la primera columna: ";
+    li $v0, 4
+    la $a0, ingresa_col_1
+    syscall
+#    std::cin >> col1;
+    li $v0, 5
+    syscall
+    move $t1, $v0
+if_first_col:
+#    if (col1 < 0 || col1 >= numCol) {
+    bltz $t1, error_first_col
+    bge $t1, $s2, error_first_col
+    j else_first_col
+
+error_first_col:
+#        std::cout << "Error: índice de columna inválido\n";
+    li $v0, 4
+    la $a0, msg_error_col_1
+    syscall
+#        continue;
+    j first_col
+#    }
+
+else_first_col:
+
+second_col:
+#    std::cout << "Ingrese el índice de la segunda columna: ";
+    li $v0, 4
+    la $a0, ingresa_col_2
+    syscall
+#    std::cin >> col2;
+    li $v0, 5
+    syscall
+    move $t2, $v0
+
+if_second_col:
+#    if (col2 < 0 || col2 >= numCol || col1 == col2) {
+    bltz $t2, error_second_col
+    bge $t2, $s2, error_second_col
+    beq $t1, $t2, error_second_col
+    j else_second_col
+error_second_col:
+#        std::cout << "Error: índice de columna inválido o columnas iguales\n";
+    li $v0, 4
+    la $a0, msg_error_col_2
+    syscall
+#        continue;
+    j second_col
+#    }
+
+else_second_col:
+    li $s3, 0
+for_intercambio:
+#    for (int f = 0; f < numFil; f++) {
+    bge $s3, $s1, for_intercambio_end
+
+calculo_de_dir_2:
+
+#        // Dirección lineal estilo MIPS: pos = (f * numCol + colX) * 4
+#        float val1 = datos[f][col1];  // acceso a (f * numCol + col1)
+      mul $t3, $s3, $s2
+      add $t3, $t3, $t1
+      mul $t3, $t3, sizeF
+      add $t3, $s6, $t3
+      l.s $f4, 0($t3)
+#        float val2 = datos[f][col2];  // acceso a (f * numCol + col2)
+      mul $t4, $s3, $s2
+      add $t4, $t4, $t2
+      mul $t4, $t4, sizeF
+      add $t4, $s6, $t4
+      l.s $f6, 0($t4)
+
+if_values:
+#        if (val1 > val2) {
+      c.le.s $f4, $f6
+      bc1t else_if_values
+
+intercambiando:
+#            std::cout << "Intercambio fila " << f << ": " << val1 << " con " << val2 << "\n";
+    li $v0, 4
+    la $a0, inter_1
+    syscall
+
+    li $v0, 1
+    move $a0, $s3
+    syscall
+
+    li $v0, 4
+    la $a0, inter_2
+    syscall
+
+    li $v0, 2
+    mov.s $f12, $f4
+    syscall
+
+    li $v0, 4
+    la $a0, inter_3
+    syscall
+
+    li $v0, 2
+    mov.s $f12, $f6
+    syscall
+
+    li $v0, 4
+    la $a0, inter_4
+    syscall
+#            // Intercambio sin swap ni temp usando suma/resta
+    add.s $f20, $f4, $f6
+#            datos[f][col1] = val1 + val2;
+    s.s $f20, 0($t3)
+#            datos[f][col2] = datos[f][col1] - val2;
+    sub.s $f22, $f20, $f6
+    s.s $f22, 0($t4)
+#            datos[f][col1] = datos[f][col1] - datos[f][col2];
+    sub.s $f24, $f20, $f22
+    s.s $f24, 0($t3)
+else_if_values:
+#        } else {
+#            std::cout << "No se intercambia en fila " << f << "\n";
+    li $v0, 4
+    la $a0, no_inter_1
+    syscall
+
+    li $v0, 1
+    move $a0, $s3
+    syscall
+
+    li $v0, 4
+    la $a0, no_inter_2
+    syscall
+#        }
+    addi $s3, $s3, 1
+    j for_intercambio
+#    }
+for_intercambio_end:
+
+while_true_end_2:
+#    std::cout << "Termina opcion 16\n";
+    li $v0, 4
+    la $a0, termina_16
+    syscall
+#    break;
+    j while_true
+#}
+
+op_17:
+    # TABLA DE REGISTROS:
+    # $S5 -> indCol
+    # $f22 -> pos
+    # $f20 -> maxval
+#// Opción 16: Buscar el máximo en una columna e imprimirlo, indicando en qué fila está
+    bne $s0, opc_17, op_18
+#int indCol;
+    li $s5, 0
+while_true_3:
+#while (true) {
+#    std::cout << "Ingrese el índice de la columna: ";
+    li $v0, 4
+    la $a0, ing_col
+    syscall
+#    std::cin >> indCol;
+    li $v0, 5
+    syscall
+    move $s5, $v0
+if_ind_col:
+#    if (indCol < 0 || indCol >= numCol) {
+    bltz $s5, error_if_ind_col
+    bgt $s5, $s2, error_if_ind_col
+    j else_ind_col
+error_if_ind_col:
+#        std::cout << "Error: índice de columna inválido\n";
+    li $v0, 4
+    la $a0, invalid_col
+    syscall
+#        continue;
+    j while_true_3
+#    }
+    li $t8, 0
+else_ind_col:
+      mul $t4, $t8, $s2
+      add $t4, $t4, $s5
+      mul $t4, $t4, sizeF           # *4 (tamaño float)
+      add $t4, $t4, $s6             # dirección absoluta
+    l.s $f20, 0($t4)
+#    float maxVal = datos[0][indCol];  // Suponemos que el máximo inicial está en la primera fila
+#    int filaMax = 0;
+    li $s7, 0
+    li $s3, 1
+for_max_elem:
+#    for (int f = 1; f < numFil; f++) {
+    bge $s3, $s1, for_end_max_elem
+#        // pos = f * numCol + indCol   --> cálculo de dirección estilo MIPS
+      mul $t3, $s3, $s2
+      add $t3, $t3, $s5
+      mul $t3, $t3, sizeF           # *4 (tamaño float)
+      add $t3, $t3, $s6             # dirección absoluta
+      l.s $f22, 0($t3)
+
+if_for_max_elem:
+#        if (datos[f][indCol] > maxVal) {
+      c.le.s $f22, $f20
+      bc1t skip_update_3
+update:
+#            maxVal = datos[f][indCol];
+    mov.s $f20, $f22
+#            filaMax = f;
+    move $s7, $s3
+#        }
+skip_update_3:
+    addi $s3, $s3, 1
+    j for_max_elem
+#    }
+for_end_max_elem:
+#    // Imprimir el máximo encontrado
+#    std::cout << "Máximo en columna " << indCol << ": " << maxVal << " en fila " << filaMax << "\n";
+    li $v0, 4
+    la $a0, fila_max_1
+    syscall
+
+    li $v0, 1
+    move $a0, $s5
+    syscall
+
+    li $v0, 4
+    la $a0, fila_max_2
+    syscall
+
+    li $v0, 2
+    mov.s $f12, $f20
+    syscall
+
+    li $v0, 4
+    la $a0, fila_max_3
+    syscall
+
+    li $v0, 1
+    move $a0, $s7
+    syscall
+
+    li $v0, 4
+    la $a0, fila_max_4
+    syscall
+
+    li $t5, 0
+for_print_not_max:
+#    // Imprimir que en las demás filas no está el máximo
+#    for (int f = 0; f < numFil; f++) {
+    bge $t5, $s1, for_print_not_max_end
+
+#        if (f != filaMax) {
+    bne $t5, $s7, msg_fil
+    j for_print_not_max_end
+
+msg_fil:
+#            std::cout << "Fila " << f << ": no contiene el máximo\n";
+    li $v0, 4
+    la $a0, fila_not_max_1
+    syscall
+
+    li $v0, 1
+    move $a0, $t5
+    syscall
+
+    li $v0, 4
+    la $a0, fila_not_max_2
+    syscall
+#        }
+#    }
+    addi $t5, $t5, 1
+    j for_print_not_max
+for_print_not_max_end:
+
+
+while_true_3_end:
+#    std::cout << "Termina opcion 16\n";
+    li $v0, 4
+    la $a0, termina_17
+    syscall
+#    break;
+    j while_true
+#}
+
+op_18:
+# // Opción 18:
+    # TABLA DE REGISTROS:
+    # $s3 -> indCol
+    # $s5 -> f
+    # $s7 -> dir de memoria
+    # $f20 -> valor
+    # $f22 -> floatVNuebo
+    # $f4 -> cte{0.0}
+    # $f6 -> cte{2.0}
+    # $f18 -> cte{1.0}
+# // Solicitado el índice de una columna, duplica los elementos positivos
+# // y resta 1 a los negativos.
+    # $s0 -> opc # Opción ingresada por el usuario
+    bne $s0, opc_18, op_19
+pide_col_6:
+    # int indCol;
+        li $s3, 0
+    # std::cout << "Indice de columna: ";
+        li $v0, 4
+        la $a0, pide_indcol
+        syscall
+    # std::cin >> indCol;
+        li $v0, 5
+        syscall
+        move $s3, $v0
+if_pide_col_6:
+    # if ((indCol < 0) || (indCol >= numCol)) {
+        bltz $s3, error_col_6
+        bge $s3, $s2, error_col_6
+        j else_pide_col_6
+error_col_6:
+        # std::cout << "Error: dimension incorrecta. Numero de columna incorrecto\n";
+        li $v0, 4
+        la $a0, error_pidecol_6
+        syscall
+        # continue; // volvemos al inicio del while
+        j pide_col_6
+ #   }
+else_pide_col_6:
+    li $s5, 0
+for_col_6:
+    # for (int f = 0; f < numFil; f++) {
+    bge $s5, $s1, for_col_6_end
+    li $s7, 0
+        # float valor = datos[f][indCol];
+            # dirección: pos = (f * numCol + indCol) * 4
+      mul $s7, $s5, $s2             # f * numCol
+      add $s7, $s7, $s3             # + c
+      mul $s7, $s7, sizeF           # *4 (tamaño float)
+      add $s7, $s7, $s6             # dirección absoluta
+      l.s $f20, 0($s7)
+        # std::cout << "En fila " << f;
+      li $v0, 4
+      la $a0, en_fila
+      syscall
+      li $v0, 1
+      move $a0, $s5
+      syscall
+if_cond_for_col_6:
+      li.s $f4, 0.0
+      li.s $f6, 2.0
+      li.s $f18, 1.0
+        # if (valor > 0.0f) {
+      c.le.s $f20, $f4
+      bc1t else_cond_for_col_6
+            # float nuevoV = valor * 2.0f;
+      mul.s $f22, $f20, $f6
+            # std::cout << " es positivo " << nuevoV;
+      li $v0, 4
+      la $a0, en_fila_2
+      syscall
+      li $v0, 2
+      mov.s $f12, $f22
+      syscall
+            # datos[f][indCol] = nuevoV;
+      s.s $f22, 0($s7)
+      j end_if
+else_cond_for_col_6:
+ #       } else {
+            # float nuevoV = valor - 1.0f;
+        sub.s $f22, $f20, $f18
+            # std::cout << " es negativo " << nuevoV;
+        li $v0, 4
+        la $a0, en_fila_3
+        syscall
+        li $v0, 2
+        mov.s $f12, $f22
+        syscall
+            # datos[f][indCol] = nuevoV;
+        s.s $f22, 0($s7)
+#        }
+end_if:
+        # std::cout << '\n';
+    li $v0, 11
+    li $a0, 10
+    syscall
+
+    addi $s5, $s5, 1
+    j for_col_6
+#    }
+for_col_6_end:
+    # std::cout << "Termina opcion 18\n";
+    li $v0, 4
+    la $a0, termina_18
+    syscall
+    # continue; // volvemos al menú
+    j while_true
+#}
+
+op_19:
+	bne $s0, opc_19, op_incorrecta             # ($s0 != 7) -> op_7
+#        std::cout << "Indice de columna: ";
+# Pedimos el indice de la columna
+	li $v0, 4			# cargamos print_string
+	la $a0, pideCol			# cargamos dir pidecol
+	syscall				# llamada al sistema
+#      int indCol;
+	li $s3, 0			# $s3 = 0
+#      std::cin >> indCol;
+	li $v0, 5			# cargamos read_int
+	syscall				# llamada al sistema
+	move $s3, $v0			# $s3 = $v0
+if_pide_col:
+# SI no se cumplen las condiciones sale a fuera
+#      if ((indCol < 0) || (indCol >= numCol)) {
+	bltz $s3, error_pide_col
+	bge $s3, $s2, error_pide_col
+	j else_pide_col
+error_pide_col:
+# Salta mensaje de error
+#        std::cout <<
+#          "Error: dimension incorrecta.  Numero de columna incorrecto\n";
+	li $v0, 4
+	la $a0, errorpideCol
+	syscall
+#        continue;  // volvemos al principio del bucle
+	j while_true
+#      }
+else_pide_col:
+#      float suma = 0;
+# Inicializamos la suma
+	li.s $f20, 0.0
+# Inicializamos la f
+	li $s5, 0
+for_principal:
+#      for(int f = 0; f < numFil; f++) {
+	bge $s5, $s1, for_principal_end
+
+# Inicializamos $s7
+	li $s7, 0
+# Cargamos la dir
+#        suma += datos[f * numCol + indCol];
+      mul $s7, $s5, $s2
+      add $s7, $s7, $s3
+      mul $s7, $s7, sizeF
+      add $s7, $s7, $s6
+      l.s $f22, 0($s7)
+
+# ALmacenamos la suma
+      add.s $f20, $f20, $f22
+# Aumentamos el contador
+      addi $s5, $s5, 1
+      j for_principal
+#      }
+for_principal_end:
+if_cond:
+# Cargamos $f4 = 0
+#      if (suma > 0)
+	li.s $f4, 0.0
+# Si no se cumple salta a fuera de if y no se intercambian
+	c.le.s $f20, $f4
+	bc1t skip_swap
+else_if_cond:
+# Almacenamos mitadcol en $t5
+#        int mitad_col = numFil / 2;
+	div $t5, $s1, 2
+	li $s5, 0
+for_second:
+# Hacemos el bucle
+#        for(int f = 0; f < mitad_col; f++) {
+	bge $s5, $t5, for_second_end
+#            float aux = datos[f * numCol + indCol];
+# Calculamos la dir
+        mul $s7, $s2, $s5
+        add $s7, $s7, $s3
+        mul $s7, $s7, sizeF
+        add $s7, $s7, $s6
+        l.s $f26, 0($s7)
+# Calculamos la otra dirección
+#            float aux2 = datos[(numFil - f - 1) * numCol + indCol];
+  	sub $t6, $s1, $s5
+  	sub $t6, $t6, 1
+  	mul $t7, $s2, $t6
+      add $t7, $t7, $s3
+      mul $t7, $t7, sizeF
+      add $t7, $t7, $s6
+      l.s $f28, 0($t7)
+
+# Imprimimos aux1
+#            std::cout << aux << ' ';
+	li $v0, 2
+	mov.s $f12, $f26
+	syscall
+
+      li $v0, 11
+	li $a0, 32
+	syscall
+# Imprimimos aux2
+#            std::cout << aux2 << '\n';
+	li $v0, 2
+	mov.s $f12, $f28
+	syscall
+
+	li $v0, 11
+	li $a0, 10
+	syscall
+# Intecambiamos los elemenos
+#            datos[f * numCol + indCol] = aux2;
+	s.s $f26, 0($t7)
+#            datos[(numFil - f - 1) * numCol + indCol] = aux;
+	s.s $f28, 0($s7)
+	addi $s5, $s5, 1
+	j for_second
+for_second_end:
+#        }
+#      }
+if_cond_end:
+skip_swap:
+#      continue;
+	j while_true
+#    }
 op_incorrecta:
 # Imprimos mensaje de opción incorrecta
 #     // Opción Incorrecta ///////////////////////////////////////////////////
@@ -1159,3 +2165,5 @@ termina_programa:
       li $v0, 10                    # Cargamos la instrucción de fin_programa
       syscall                       # Llamamos al sistema
 # }
+
+
