@@ -1,13 +1,15 @@
 // AUTOR: Steven Abolaji Ibidokun
-// FECHA: 2025-04-27
+// FECHA: 2025-05-12
 // EMAIL: alu0101619613@ull.edu.es
 // VERSION: 1.0
 // ASIGNATURA: Algoritmos y Estructuras de Datos
-// PRÁCTICA Nº:  Desarrollar el destructor de la lista sll_t de forma recursiva 
-// implementando un método privado void sll_t<T>::destroy_(sll_node_t<T>*) que será llamado por el destructor:
+// DESCRIPCIÓN: Métodos de examen de listas enlazadas
 // COMENTARIOS: se indican entre [] las pautas de estilo aplicadas de
 //              "C++ Programming Style Guidelines"
 //              https://geosoft.no/development/cppstyle.html
+
+#include <iostream>
+
 
 #include "sll_node_t.h"
 
@@ -37,8 +39,11 @@ template <class T> class sll_t {
 
   sll_node_t<T>* search(const T&) const;
 
-  void destroy_(sll_node_t<T>* p); 
-  void reverse(sll_node_t<T> *p);
+  ~sll_t(void);
+
+  void destroy(sll_node_t<T>* n);
+
+  void writeReverseStack(std::ostream& os); 
 
   // E/S
   std::ostream& write(std::ostream& = std::cout) const;
@@ -48,24 +53,45 @@ template <class T> class sll_t {
   sll_node_t<T>* head_;  // Puntero que apunta a cabeza
 };
 
-// Destructor
-template<class t>
-void ::destroy_(sll_node_t<T>* p) {
-  if(p != NULL) {
-    destroy(p->get_next());
-    delete p;
-    p = NULL;
+// Destructor iterativo.
+template<class T>
+sll_t<T>::~sll_t(void) {
+  while(!empty()) {
+    sll_node_t<T>* aux = head_;
+    head_ = head_->get_next();
+    delete aux;
   }
 }
 
-template<clas T>
-void ::reverse(sll_node_t<T> *p) {
-  assert(p != NULL);
-  if(p->get_next() == NULL) head_ = p;
-  else {
-    revese(p->get_next()); 
-    p->get_next()->set_next(p);
-    p->set_next(NULL);
+
+// Destructor recursivo
+template<class T>
+sll_t<T>::~sll_t(void) {
+  destroy(head_);
+}
+
+template<class T>
+void sll_t<T>::destroy(sll_node_t<T>* n) {
+  if(n != NULL) {
+    destroy(n->get_next());
+    delete n; 
+  }
+};
+
+// Elementos de la lista que sean pares en orden inverso
+template<class T>
+void writeReverseStack(std::ostream& os) {
+  stack_l_t<T> stack; 
+  sll_node_t<T>* aux = head_; 
+
+  while(aux != NULL) {
+    if(aux -> get_data() % 2 == 0) 
+        stack.push(get_head());
+      head_ = head->get_next();
+  }
+
+  while(!stack.empty()) {
+    os << stack.top();
+    stack.pop()
   }
 }
-;
